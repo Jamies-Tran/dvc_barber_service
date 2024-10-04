@@ -1,0 +1,7 @@
+local-db: abc
+
+spring:
+  application:
+    name: dvc_barber_service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
