@@ -1,0 +1,25 @@
+local:
+  database-url: jdbc:mysql://localhost:3306/dvc_db
+  database-user: root
+  database-password: minhtranquang2197
+
+deploy:
+  database-url: mysql://b708a6e06d14ce:e3a8501e@us-cluster-east-01.k8s.cleardb.net/heroku_f5ab1831bc5b512?reconnect=true
+  database-user: b708a6e06d14ce
+  database-password: e3a8501e
+
+spring:
+  application:
+    name: dvc_barber_service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: ${local.database-url}
+    username: ${local.database-user}
+    password: ${local.database-password}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql:
