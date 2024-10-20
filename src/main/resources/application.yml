@@ -1,0 +1,46 @@
+local:
+  database-url: jdbc:mysql://localhost:3306/dvc_db
+  database-user: root
+  database-password: minhtranquang2197
+
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: dvc_barber_service
+  main:
+    allow-circular-references: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: ${local.database-url}
+    username: ${local.database-user}
+    password: ${local.database-password}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql:
+  flyway:
+    baseline-on-migrate: true
+
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
+
+app:
+  cache:
+    expire-time: 15
+  access-token:
+    expire-time: 15
+    secret-key: ftoLRVxHq82BzLq3stXhnOJRo4azrVab
+  refresh-token:
+    expire-time: 4320
+
+
+
