@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/><!-- lookup parent from repository -->
     </parent>
     <groupId>com.project</groupId>
     <artifactId>dvc_barber_service</artifactId>
@@ -30,6 +30,8 @@
         <java.version>23</java.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <spring-shell.version>3.3.3</spring-shell.version>
+        <map-struct.version>1.5.5.Final</map-struct.version>
+        <json-web-token.version>0.12.6</json-web-token.version>
     </properties>
     <dependencies>
         <dependency>
@@ -90,6 +92,36 @@
             <artifactId>spring-shell-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${map-struct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${map-struct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${json-web-token.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${json-web-token.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${json-web-token.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
