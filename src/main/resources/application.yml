@@ -9,7 +9,7 @@ local:
 #  database-password: e3a8501e
 
 deploy:
-  database-url: mysql://qnq5wofuq6zieuvn:jwguy5jaovydz10h@ofcmikjy9x4lroa2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/orvki1avp7xkboe1
+  database-url: jdbc:mysql://ofcmikjy9x4lroa2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/orvki1avp7xkboe1?user=qnq5wofuq6zieuvn
   database-user: qnq5wofuq6zieuvn
   database-password: jwguy5jaovydz10h
 
