@@ -3,14 +3,24 @@ local:
   database-user: root
   database-password: minhtranquang2197
 
+#deploy:
+#  database-url: mysql://b708a6e06d14ce:e3a8501e@us-cluster-east-01.k8s.cleardb.net/heroku_f5ab1831bc5b512?reconnect=true
+#  database-user: b708a6e06d14ce
+#  database-password: e3a8501e
+
 deploy:
-  database-url: mysql://b708a6e06d14ce:e3a8501e@us-cluster-east-01.k8s.cleardb.net/heroku_f5ab1831bc5b512?reconnect=true
-  database-user: b708a6e06d14ce
-  database-password: e3a8501e
+  database-url: mysql://qnq5wofuq6zieuvn:jwguy5jaovydz10h@ofcmikjy9x4lroa2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/orvki1avp7xkboe1
+  database-user: qnq5wofuq6zieuvn
+  database-password: jwguy5jaovydz10h
+
+server:
+  port: 8080
 
 spring:
   application:
     name: dvc_barber_service
+  main:
+    allow-circular-references: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: ${deploy.database-url}
