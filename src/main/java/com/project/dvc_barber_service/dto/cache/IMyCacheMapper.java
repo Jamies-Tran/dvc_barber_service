@@ -1,7 +1,5 @@
 package com.project.dvc_barber_service.dto.cache;
 
-import com.project.dvc_barber_service.dto.account.IAccountMapper;
-import com.project.dvc_barber_service.dto.auth.RefreshToken;
 import com.project.dvc_barber_service.repository.cache.MyCacheEntity;
 import com.project.dvc_barber_service.util.object.mapper.AppObjectMapper;
 import org.mapstruct.Mapper;
