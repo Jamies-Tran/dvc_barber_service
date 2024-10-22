@@ -4,9 +4,9 @@ local:
   database-password: minhtranquang2197
 
 deploy:
-  database-url: jdbc:mysql://ofcmikjy9x4lroa2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/orvki1avp7xkboe1?user=qnq5wofuq6zieuvn
-  database-user: qnq5wofuq6zieuvn
-  database-password: jwguy5jaovydz10h
+  database-url: jdbc:mysql://d9c88q3e09w6fdb2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/g930s2qohalbisyr?user=wzxzjm7u1o0gykfx
+  database-user: wzxzjm7u1o0gykfx
+  database-password: q8biqjbmgtw2ulvy
 
 spring:
   application:
