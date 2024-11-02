@@ -1,5 +1,6 @@
 package com.project.dvc_barber_service.service.auth.identification;
 
+import com.project.dvc_barber_service.config.handler.exception.ResourceNotFoundException;
 import com.project.dvc_barber_service.dto.auth.identification.Identification;
 import com.project.dvc_barber_service.dto.auth.identification.action.RefreshTokenAction;
 import com.project.dvc_barber_service.dto.auth.identification.action.VerifyIdentificationAction;

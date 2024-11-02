@@ -11,9 +11,13 @@ import com.project.dvc_barber_service.dto.auth.identification.Identification;
 import com.project.dvc_barber_service.dto.auth.identification.Token;
 import com.project.dvc_barber_service.dto.auth.identification.action.RefreshTokenAction;
 import com.project.dvc_barber_service.dto.auth.identification.action.VerifyIdentificationAction;
+import com.project.dvc_barber_service.dto.auth.role.Role;
+import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByIdAction;
 import com.project.dvc_barber_service.dto.cache.MyCache;
+import com.project.dvc_barber_service.enums.status.EAccountStatus;
 import com.project.dvc_barber_service.repository.cache.MyCacheEntity;
 import com.project.dvc_barber_service.service.account.AccountQueryService;
+import com.project.dvc_barber_service.service.auth.role.RoleQueryService;
 import com.project.dvc_barber_service.service.cache.MyCacheCommandService;
 import com.project.dvc_barber_service.service.cache.MyCacheQueryService;
 import com.project.dvc_barber_service.util.jwt.JwtUtil;
@@ -28,6 +32,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -64,12 +69,18 @@ public class IdentificationService {
             throw new IdentificationException("Xác thực tài khoản thất bại");
         } else {
             Account account = tryToGetAccount.get();
-            String accessToken = jwtUtil.generateAccessToken(account.phone());
-            updateRefreshToken(action.phone());
-            String refreshToken = cacheRefreshToken(account.phone());
-            Token token = Token.buildFrom(accessToken, refreshToken);
+            if(Objects.equals(account.statusCode(), EAccountStatus.ENABLED.getCode())) {
+                String accessToken = jwtUtil.generateAccessToken(account.phone());
+                updateRefreshToken(action.phone());
+                String refreshToken = cacheRefreshToken(account.phone());
+                Token token = Token.buildFrom(accessToken, refreshToken);
 
-            return mapper.from(account).withToken(token);
+                return mapper.from(account)
+                        .withToken(token);
+            } else {
+                throw new IdentificationException("Tài khoản chưa được kích hoạt");
+            }
+
         }
 
     }

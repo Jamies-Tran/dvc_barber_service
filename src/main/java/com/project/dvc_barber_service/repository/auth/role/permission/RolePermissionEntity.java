@@ -32,4 +32,10 @@ public class RolePermissionEntity {
 
     @Column(name = "permission_id")
     Long permissionId;
+
+    @Column(name = "role_code")
+    String roleCode;
+
+    @Column(name = "permission_code")
+    String permissionCode;
 }

@@ -15,9 +15,9 @@ spring:
     allow-circular-references: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: ${deploy.database-url}
-    username: ${deploy.database-user}
-    password: ${deploy.database-password}
+    url: ${local.database-url}
+    username: ${local.database-user}
+    password: ${local.database-password}
   jpa:
     show-sql: true
     hibernate:
@@ -42,3 +42,9 @@ app:
     secret-key: ftoLRVxHq82BzLq3stXhnOJRo4azrVab
   refresh-token:
     expire-time: 4320
+  default-password: 1234567
+  init-account:
+    first-name: Đại Việt
+    last-name: Cát
+    phone: 0123456789
+

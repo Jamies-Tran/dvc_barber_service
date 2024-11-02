@@ -6,15 +6,17 @@ import com.project.dvc_barber_service.service.auth.user.AppUserDetailService;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,8 +28,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
+@SuppressWarnings("deprecate")
 public class SecurityConfiguration {
     @NonNull AppFilter appFilter;
 
@@ -62,7 +66,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
                 .cors(httpCors -> httpCors.configurationSource(customCorsConfiguration()))
-                .csrf(httpCsrf -> httpCsrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(httpSession -> httpSession.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(appFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(httpAuthorization -> httpAuthorization.requestMatchers(
@@ -72,7 +76,8 @@ public class SecurityConfiguration {
                         AntPathRequestMatcher.antMatcher("/v3/api-docs"),
                         AntPathRequestMatcher.antMatcher("/auth/**"),
                         AntPathRequestMatcher.antMatcher("/auth/*"),
-                        AntPathRequestMatcher.antMatcher("/common/**")).permitAll())
+                        AntPathRequestMatcher.antMatcher("/v3/**"),
+                        AntPathRequestMatcher.antMatcher(HttpMethod.POST,"/v2/account")).permitAll())
                 .authorizeHttpRequests(httpAuthorization -> httpAuthorization.anyRequest().authenticated())
                 .exceptionHandling(excHandler -> excHandler.authenticationEntryPoint(appAuthenticationEntryPoint))
                 .build();

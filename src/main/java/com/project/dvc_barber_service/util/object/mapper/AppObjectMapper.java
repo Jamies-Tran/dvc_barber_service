@@ -1,5 +1,6 @@
 package com.project.dvc_barber_service.util.object.mapper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ public class AppObjectMapper {
         try {
             return objectMapper().writeValueAsBytes(data);
         } catch (Exception e) {
-            log.error("[{}] có lỗi xảy ra: {} ", AppObjectMapper.class.getSimpleName(), e.getMessage());
+            log.error("[{}-convertDataToByte] có lỗi xảy ra: {} ", AppObjectMapper.class.getSimpleName(), e.getMessage());
             throw new RuntimeException();
         }
     }
@@ -23,8 +24,17 @@ public class AppObjectMapper {
         try {
             return objectMapper().readTree(data);
         } catch (Exception e) {
-            log.error("[{}] có lỗi xảy ra: {} ", AppObjectMapper.class.getSimpleName(), e.getMessage());
+            log.error("[{}-getJsonNode] có lỗi xảy ra: {} ", AppObjectMapper.class.getSimpleName(), e.getMessage());
             throw new RuntimeException();
+        }
+    }
+
+    public static String convertDataToJsonString(Object data) {
+        try {
+            return objectMapper().writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            log.error("[{}-convertDataToJsonString] có lỗi xảy ra: {} ", AppObjectMapper.class.getSimpleName(), e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

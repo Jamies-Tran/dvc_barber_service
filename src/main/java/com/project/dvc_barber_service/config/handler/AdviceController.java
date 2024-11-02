@@ -1,6 +1,7 @@
 package com.project.dvc_barber_service.config.handler;
 
 import com.project.dvc_barber_service.config.handler.exception.IdentificationException;
+import com.project.dvc_barber_service.config.handler.exception.ResourceConflictException;
 import com.project.dvc_barber_service.config.handler.exception.ResourceNotFoundException;
 import com.project.dvc_barber_service.util.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
@@ -21,5 +22,11 @@ public class AdviceController {
     @ExceptionHandler(IdentificationException.class)
     public ErrorResponse identificationException(IdentificationException exc) {
         return ErrorResponse.of(HttpStatus.UNAUTHORIZED.value(),HttpStatus.UNAUTHORIZED.getReasonPhrase(), exc.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(ResourceConflictException.class)
+    public ErrorResponse resourceConflictException(ResourceConflictException exc) {
+        return ErrorResponse.of(HttpStatus.CONFLICT.value(),HttpStatus.CONFLICT.getReasonPhrase(), exc.getMessage());
     }
 }

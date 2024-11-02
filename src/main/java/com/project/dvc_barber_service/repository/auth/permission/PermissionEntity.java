@@ -26,8 +26,8 @@ public class PermissionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long permissionId;
 
-    @Column(name = "permission_for")
-    String permissionFor;
+    @Column(name = "permission_key")
+    String permissionKey;
 
     @Column(name = "permission_code")
     String permissionCode;

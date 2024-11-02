@@ -9,10 +9,15 @@ import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -22,14 +27,21 @@ public class PermissionCommandService {
     @NonNull IPermissionMapper mapper;
 
     public List<Permission> saveAll(PermissionCreateListAction createListAction) {
-        List<PermissionEntity> newPermissions = createListAction.permissions()
-                .stream()
-                .map(mapper::toEntity)
-                .toList();
+        List<Permission> permissions = createListAction.permissions();
+        List<Permission> newPermissions = new ArrayList<>();
+        for (Permission permission : permissions) {
+            repository.findByPermissionCode(permission.permissionCode())
+                    .ifPresentOrElse(
+                            x -> {
+                                log.info("[{}] Permission đã tồn tại", x.getPermissionCode());
+                                newPermissions.add(mapper.toDto(x));
+                            },
+                            () -> {
+                                PermissionEntity newPermission = repository.save(mapper.toEntity(permission));
+                                newPermissions.add(mapper.toDto(newPermission));
+                            });
+        }
 
-        return repository.saveAll(newPermissions)
-                .stream()
-                .map(mapper::toDto)
-                .toList();
+        return newPermissions;
     }
 }

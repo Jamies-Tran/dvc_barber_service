@@ -1,5 +1,6 @@
 package com.project.dvc_barber_service.repository.account;
 
+import com.project.dvc_barber_service.dto.account.AccountLogin;
 import com.project.dvc_barber_service.repository.audit.AuditEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +13,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.With;
 import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -41,6 +45,16 @@ public class AccountEntity extends AuditEntity {
     @Column(name = "password")
     String password;
 
+    @Column(name = "status_code")
+    @With
+    String statusCode;
+
+    @Column(name = "status_name")
+    @With
+    String statusName;
+
     @Column(name = "role_id")
+    @With
     Long roleId;
+
 }

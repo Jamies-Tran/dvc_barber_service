@@ -1,0 +1,15 @@
+package com.project.dvc_barber_service.repository.account.dao;
+
+public interface AccountLoginDAO {
+    Long getAccountId();
+
+    Long getBranchId();
+
+    String getPhone();
+
+    String getFullName();
+
+    String getRoleCode();
+
+    String getAccountCode();
+}

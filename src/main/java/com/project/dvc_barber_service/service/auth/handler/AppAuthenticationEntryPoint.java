@@ -20,7 +20,7 @@ public class AppAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         ObjectMapper objectMapper = new ObjectMapper();
-        HttpStatus unauthorized = HttpStatus.UNAUTHORIZED;
+        HttpStatus unauthorized = HttpStatus.FORBIDDEN;
         ValueResponse<?> valueRes = ValueResponse.handler("Không có quyền truy cập", unauthorized);
         response.setContentType("application/json");
         response.setStatus(unauthorized.value());

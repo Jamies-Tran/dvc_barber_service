@@ -34,4 +34,10 @@ public class AccountPropertyEntity extends AuditEntity {
 
     @Column(name = "account_code")
     String accountCode;
+
+    @Column(name = "expertise_code")
+    String expertiseCode;
+
+    @Column(name = "expertise_name")
+    String expertiseName;
 }

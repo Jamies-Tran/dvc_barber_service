@@ -4,6 +4,7 @@ import com.project.dvc_barber_service.dto.auth.permission.Permission;
 import com.project.dvc_barber_service.dto.auth.permission.action.PermissionFindByRoleIdAction;
 import com.project.dvc_barber_service.dto.auth.role.IRoleMapper;
 import com.project.dvc_barber_service.dto.auth.role.Role;
+import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByCodeAction;
 import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByIdAction;
 import com.project.dvc_barber_service.repository.auth.role.IRoleRepository;
 import com.project.dvc_barber_service.repository.auth.role.RoleEntity;
@@ -31,7 +32,28 @@ public class RoleQueryService {
         Long roleId = action.roleId();
         Optional<RoleEntity> foundRole = repository.findById(roleId);
         List<Permission> permissions = permissionQueryService.findByRoleId(PermissionFindByRoleIdAction.buildFrom(roleId));
+        List<String> authorities = permissions.stream()
+                .map(Permission::permissionAuthorityAsString)
+                .toList();
 
-        return foundRole.map(role -> mapper.toDto(role).withPermissions(permissions));
+        return foundRole.map(role -> mapper.toDto(role)
+                .withPermissions(permissions)
+                .withAuthorities(authorities));
+    }
+
+    public Optional<Role> findByCode(RoleFindByCodeAction action) {
+
+        return repository
+                .findByRoleCode(action.roleCode())
+                .map(x -> {
+                    List<Permission> permissions = permissionQueryService.findByRoleId(PermissionFindByRoleIdAction.buildFrom(x.getRoleId()));
+                    List<String> authorities = permissions.stream()
+                            .map(Permission::permissionAuthorityAsString)
+                            .toList();
+
+                    return mapper.toDto(x)
+                            .withAuthorities(authorities)
+                            .withPermissions(permissions);
+                });
     }
 }

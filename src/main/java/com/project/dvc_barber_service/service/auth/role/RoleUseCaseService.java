@@ -7,6 +7,9 @@ import com.project.dvc_barber_service.dto.auth.role.action.RoleCreateAction;
 import com.project.dvc_barber_service.dto.auth.role.action.RoleCreateListAction;
 import com.project.dvc_barber_service.dto.auth.role.permission.RolePermission;
 import com.project.dvc_barber_service.dto.auth.role.permission.action.RolePermissionCreateListAction;
+import com.project.dvc_barber_service.enums.permission.EPermission;
+import com.project.dvc_barber_service.enums.role.ERole;
+import com.project.dvc_barber_service.repository.auth.role.RoleEntity;
 import com.project.dvc_barber_service.service.cache.MyCacheCommandService;
 import com.project.dvc_barber_service.service.auth.permission.PermissionCommandService;
 import com.project.dvc_barber_service.service.auth.role.permission.RolePermissionCommandService;
@@ -20,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -31,26 +35,32 @@ public class RoleUseCaseService implements IRoleUseCase {
 
     @NonNull RolePermissionCommandService rolePermissionCommand;
 
-    @NonNull MyCacheCommandService cacheCommandService;
-
+    /*1-Tạo phân quyền*/
     @Transactional
     @Override
-    public List<Role> save(RoleCreateListAction createListAction) {
-        List<Role> roles = new ArrayList<>();
-        for(Role role : createListAction.roles()) {
-            Role savedRole = command.save(RoleCreateAction.buildFrom(role));
-            List<Permission> permissionsFromRole = role.permissions();
-            List<Permission> savedPermissions = permissionCommand
-                    .saveAll(PermissionCreateListAction.buildFrom(permissionsFromRole));
-            List<RolePermission> rolePermissions = rolePermissionCommand
-                    .saveAll(RolePermissionCreateListAction.buildFrom(savedRole.roleId(), savedPermissions));
-            List<String> authorities = rolePermissions.stream()
-                    .map(rolePermission -> rolePermission.permission().permissionAuthorityAsString())
-                    .toList();
-            roles.add(savedRole
-                    .withPermissions(savedPermissions)
-                    .withAuthorities(authorities));
+    public void save(RoleCreateListAction createListAction) {
+        List<Role> roles = ERole.getList()
+                .stream()
+                .map(Role::buildFrom)
+                .toList();
+        List<Permission> permissions = EPermission.getList()
+                .stream()
+                .map(Permission::buildFrom)
+                .toList();
+        List<Role> savedRoles = command.saveAll(RoleCreateListAction.buildFrom(roles));
+        List<Permission> savedPermissions = permissionCommand.saveAll(PermissionCreateListAction.buildFrom(permissions));
+        for (Role role : savedRoles) {
+            List<Permission> rolePermissions = createListAction.roles().stream()
+                    .filter(x -> Objects.equals(x.roleCode(), role.roleCode()))
+                    .map(Role::permissions)
+                    .findAny().orElse(new ArrayList<>());
+
+            rolePermissionCommand.saveAllOrDelete(RolePermissionCreateListAction.buildFrom(
+                    role,
+                    savedPermissions.stream()
+                            .filter(x -> rolePermissions.stream().map(Permission::permissionCode)
+                                    .toList().contains(x.permissionCode())).toList()));
         }
-        return roles;
     }
+    /*1-end*/
 }

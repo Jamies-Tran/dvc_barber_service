@@ -1,6 +1,7 @@
 package com.project.dvc_barber_service.service.account;
 
 import com.project.dvc_barber_service.dto.account.Account;
+import com.project.dvc_barber_service.dto.account.AccountLogin;
 import com.project.dvc_barber_service.dto.account.IAccountMapper;
 import com.project.dvc_barber_service.dto.account.action.AccountFindByPhoneAction;
 import com.project.dvc_barber_service.dto.account.property.AccountProperty;
@@ -9,6 +10,7 @@ import com.project.dvc_barber_service.dto.auth.role.Role;
 import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByIdAction;
 import com.project.dvc_barber_service.repository.account.AccountEntity;
 import com.project.dvc_barber_service.repository.account.IAccountRepository;
+import com.project.dvc_barber_service.repository.account.dao.AccountLoginDAO;
 import com.project.dvc_barber_service.service.account.property.AccountPropertyQueryService;
 import com.project.dvc_barber_service.service.auth.role.RoleQueryService;
 import lombok.AccessLevel;
@@ -31,6 +33,7 @@ public class AccountQueryService {
 
     @NonNull AccountPropertyQueryService accountPropertyQueryService;
 
+    /*1-tìm tài khoản bằng số điện thoại*/
     public Optional<Account> findByPhone(AccountFindByPhoneAction action) {
         Optional<AccountEntity> tryToGetAccount = repository.findByPhone(action.phone());
         if (tryToGetAccount.isPresent()) {
@@ -48,5 +51,18 @@ public class AccountQueryService {
 
         return Optional.empty();
     }
+    /*1-end*/
 
+    /*2-tìm tài khoản được xác thực*/
+    public Optional<AccountLogin> findAccountLoginByPhone(AccountFindByPhoneAction action) {
+        Optional<AccountLoginDAO> tryToGetAccount = repository.findAccountLoginDAOByPhone(action.phone());
+        if (tryToGetAccount.isPresent()) {
+            AccountLoginDAO account = tryToGetAccount.get();
+
+            return Optional.of(mapper.toDto(account));
+        }
+
+        return Optional.empty();
+    }
+    /*2-end*/
 }

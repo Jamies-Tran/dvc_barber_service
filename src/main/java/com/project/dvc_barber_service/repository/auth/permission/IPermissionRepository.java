@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IPermissionRepository extends JpaRepository<PermissionEntity, Long> {
@@ -16,4 +17,18 @@ public interface IPermissionRepository extends JpaRepository<PermissionEntity, L
         WHERE r.roleId = :roleId
     """)
     List<PermissionEntity> findByRoleId(Long roleId);
+
+    @Query("""
+        SELECT p
+        FROM PermissionEntity p 
+        INNER JOIN RolePermissionEntity pr ON p.permissionId = pr.permissionId
+        INNER JOIN RoleEntity r ON r.roleId = pr.roleId
+        WHERE r.roleId = :roleId
+            AND p.permissionCode = :permissionCode 
+    """)
+    Optional<PermissionEntity> findByRoleIdAndPermissionCode(Long roleId, String permissionCode);
+
+    Optional<PermissionEntity> findByPermissionCode(String permissionCode);
+
+    void deleteByPermissionCode(String permissionCode);
 }

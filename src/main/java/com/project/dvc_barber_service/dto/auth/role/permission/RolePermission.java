@@ -11,13 +11,17 @@ public record RolePermission(
         Long rolePermissionId,
         Long roleId,
         Long permissionId,
+        String roleCode,
+        String permissionCode,
         Role role,
         Permission permission
 ) {
-    public static RolePermission buildFrom(Long roleId, Long permissionId) {
+    public static RolePermission buildFrom(Long roleId, Long permissionId, String roleCode, String permissionCode) {
         return RolePermission.builder()
                 .roleId(roleId)
                 .permissionId(permissionId)
+                .roleCode(roleCode)
+                .permissionCode(permissionCode)
                 .build();
     }
 }

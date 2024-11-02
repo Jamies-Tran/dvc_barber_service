@@ -15,11 +15,14 @@ import java.util.Set;
 @Builder
 public record Account(
         Long accountId,
+        Long roleId,
         String firstName,
         String lastName,
         String phone,
         String address,
         String password,
+        String statusCode,
+        String statusName,
         AccountProperty accountProperty,
         Role role
 ) {
