@@ -4,9 +4,9 @@ local:
   database-password: minhtranquang2197
 
 deploy:
-  database-url: jdbc:mysql://d9c88q3e09w6fdb2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/g930s2qohalbisyr?user=wzxzjm7u1o0gykfx
-  database-user: wzxzjm7u1o0gykfx
-  database-password: q8biqjbmgtw2ulvy
+  database-url: ${DB_URL}
+  database-user: ${DB_USER}
+  database-password: ${DB_PASSWORD}
 
 spring:
   application:
@@ -15,9 +15,9 @@ spring:
     allow-circular-references: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: ${local.database-url}
-    username: ${local.database-user}
-    password: ${local.database-password}
+    url: ${deploy.database-url}
+    username: ${deploy.database-user}
+    password: ${deploy.database-password}
   jpa:
     show-sql: true
     hibernate:
