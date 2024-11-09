@@ -47,6 +47,11 @@ public class AuthorizationController implements IAuthorizationAPI {
 
     @NonNull IRefreshTokenModelMapper refreshTokenModelMapper;
 
+    /*
+     * Use case
+     * Xác thực và phân quyền
+     * start
+     * */
     @Override
     public ResponseEntity<?> verifyIdentification(IdentificationRequest identificationRequest) {
         try {
@@ -80,4 +85,8 @@ public class AuthorizationController implements IAuthorizationAPI {
                    .body(ListResponse.handler(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
        }
     }
+    /*
+     * Use case
+     * end
+     * */
 }

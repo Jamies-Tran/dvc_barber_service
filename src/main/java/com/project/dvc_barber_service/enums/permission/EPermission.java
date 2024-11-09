@@ -15,9 +15,12 @@ import java.util.stream.Stream;
 public enum EPermission {
     ACCOUNT_CREATE("ACCOUNT_CREATE", "account", "create"),
     ACCOUNT_UPDATE("ACCOUNT_UPDATE", "account", "update"),
-    MANAGER_CREATE("MANAGER_CREATE", "manager", "create"),
-    SERVICE_STAFF_CREATE("SERVICE_STAFF_CREATE", "staff", "create"),
-    RECEPTIONIST_CREATE("RECEPTIONIST_CREATE", "receptionist", "create"),;
+    ACCOUNT_SELF_UPDATE("ACCOUNT_SELF_UPDATE", "account", "self-update"),
+    ACCOUNT_VIEW_LIST("ACCOUNT_VIEW_LIST", "account", "view-list"),
+    ACCOUNT_VIEW_DETAIL("ACCOUNT_VIEW_DETAIL", "account", "view-detail"),
+    ACCOUNT_SELF_VIEW("ACCOUNT_SELF_VIEW", "account", "self-view"),
+    ACCOUNT_DELETE("ACCOUNT_DELETE", "account", "delete"),
+    BRANCH_CREATE("BRANCH_CREATE", "branch", "create"),;
 
     String code;
     String key;

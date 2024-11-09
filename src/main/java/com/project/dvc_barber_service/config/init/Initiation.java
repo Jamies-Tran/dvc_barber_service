@@ -67,12 +67,43 @@ public class Initiation {
                 return List.of(
                         Permission.buildFrom(EPermission.ACCOUNT_CREATE),
                         Permission.buildFrom(EPermission.ACCOUNT_UPDATE),
-                        Permission.buildFrom(EPermission.MANAGER_CREATE));
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_UPDATE),
+                        Permission.buildFrom(EPermission.ACCOUNT_DELETE),
+                        Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
+                        Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
+                        Permission.buildFrom(EPermission.BRANCH_CREATE));
             }
             case BRANCH_MANAGER -> {
                 return List.of(
                         Permission.buildFrom(EPermission.ACCOUNT_CREATE),
-                        Permission.buildFrom(EPermission.ACCOUNT_UPDATE));
+                        Permission.buildFrom(EPermission.ACCOUNT_UPDATE),
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_UPDATE),
+                        Permission.buildFrom(EPermission.ACCOUNT_DELETE),
+                        Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
+                        Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW));
+            }
+            case SERVICE_STAFF -> {
+                return List.of(
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_UPDATE),
+                        Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
+                        Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW));
+            }
+            case RECEPTIONIST -> {
+                return List.of(
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_UPDATE),
+                        Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
+                        Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW));
+            }
+            case CUSTOMER -> {
+                return List.of(
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_UPDATE),
+                        Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
+                        Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW));
             }
             default -> {
                 return List.of();

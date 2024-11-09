@@ -2,19 +2,26 @@ package com.project.dvc_barber_service.service.account;
 
 import com.project.dvc_barber_service.config.context.RequestContext;
 import com.project.dvc_barber_service.config.handler.exception.ResourceConflictException;
+import com.project.dvc_barber_service.config.handler.exception.ResourceForbiddenException;
 import com.project.dvc_barber_service.config.handler.exception.ResourceNotFoundException;
 import com.project.dvc_barber_service.dto.account.Account;
 import com.project.dvc_barber_service.dto.account.AccountLogin;
 import com.project.dvc_barber_service.dto.account.IAccountMapper;
 import com.project.dvc_barber_service.dto.account.action.AccountCreateAction;
+import com.project.dvc_barber_service.dto.account.action.AccountDeleteAction;
+import com.project.dvc_barber_service.dto.account.action.AccountUpdateAction;
 import com.project.dvc_barber_service.dto.auth.role.Role;
 import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByCodeAction;
+import com.project.dvc_barber_service.dto.media.Media;
+import com.project.dvc_barber_service.enums.expertise.EExpertise;
 import com.project.dvc_barber_service.enums.role.ERole;
 import com.project.dvc_barber_service.enums.status.EAccountStatus;
+import com.project.dvc_barber_service.enums.status.EDeleteStatus;
 import com.project.dvc_barber_service.repository.account.AccountEntity;
 import com.project.dvc_barber_service.repository.account.IAccountRepository;
 import com.project.dvc_barber_service.service.auth.role.RoleQueryService;
-import com.project.dvc_barber_service.util.PrepareSave;
+import com.project.dvc_barber_service.util.PrepareSaveOrUpdate;
+import com.project.dvc_barber_service.util.object.mapper.AppObjectMapper;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +32,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -47,9 +56,19 @@ public class AccountCommandService {
     String defaultPassword;
 
     /*
-    * UC2:
-    * Tạo tài khoản quản lý chi nhánh
-    ***/
+     * Use case
+     * Chủ shop tạo tài khoản QL chi nhánh
+     * Chủ shop tạo tài khoản nhân viên cắt tóc trong chi nhánh
+     * Chủ shop tạo tài khoản nhân viên massage trong chi nhánh
+     * Chủ shop tạo tài khoản tiếp tân trong chi nhánh
+     *
+     * QL chi nhánh tạo tài khoản nhân viên cắt tóc
+     * QL chi nhánh tạo tài khoản nhân viên massage
+     * QL chi nhánh tạo tài khoản tiếp tân trong
+     *
+     * Khách hàng tạo tài khoản
+     * start
+     ***/
     public Account save(AccountCreateAction action) {
         Account account = action.account()
                 .withPassword(passwordEncoder.encode(defaultPassword));
@@ -63,8 +82,13 @@ public class AccountCommandService {
                     .withRoleId(role.roleId())
                     .withStatusCode(status.getCode())
                     .withStatusName(status.getName());
+            tryToGetExpertise(account.expertiseCode())
+                    .ifPresent(x -> {
+                        newAccount.setExpertiseCode(x.getCode());
+                        newAccount.setExpertiseName(x.getName());
+                    });
             AccountLogin accountLogin = prepareAccountLogin(role.roleCode());
-            PrepareSave.<AccountEntity>prepare(newAccount, accountLogin);
+            PrepareSaveOrUpdate.prepareSave(newAccount, accountLogin);
             AccountEntity savedAccount = repository.save(newAccount);
 
             return mapper.toDto(savedAccount)
@@ -77,6 +101,10 @@ public class AccountCommandService {
             log.error("[{}-create] có lỗi xảy ra: {}", this.getClass().getSimpleName(), e.getMessage());
             throw e;
         }
+    }
+
+    private Optional<EExpertise> tryToGetExpertise(String expertiseCode) {
+        return EExpertise.getByCode(expertiseCode);
     }
 
     private AccountLogin prepareAccountLogin(String roleCode) {
@@ -107,6 +135,107 @@ public class AccountCommandService {
         return Objects.nonNull(branchId) ? EAccountStatus.ENABLED : EAccountStatus.DISABLED;
     }
     /*
-     * UC2-end
+     * Use case
+     * end
      ***/
+
+    /*
+     * Use case
+     * Chủ shop cập nhật thông tin tài khoản QL chi nhánh
+     * Chủ shop cập nhật thông tin tài khoản nhân viên cắt tóc
+     * Chủ shop cập nhật thông tin tài khoản nhân viên massage
+     * Chủ shop cập nhật thông tin tài khoản tiếp tân
+     *
+     * QL chi nhánh cập nhật tài khoản nhân viên cắt tóc
+     * QL chi nhánh cập nhật tài khoản nhân viên massage
+     * QL chi nhánh cập nhật tài khoản tiếp tân
+     *
+     * Chủ Shop cập nhật thông tin tài khoản
+     * QL chi nhánh cập nhật thông tin tài khoản
+     * Nhân viên cắt tóc cập nhật thông tin tài khoản
+     * Nhân viên massage cập nhật thông tin tài khoản
+     * Nhân viên tiếp tân cập nhật thông tin tài khoản
+     *
+     * Khách hàng cập nhật thông tin tài khoản
+     * start
+     * */
+    public Account update(AccountUpdateAction action) {
+        try {
+            Account account = action.account();
+            Long accountId = Objects.requireNonNullElse(action.accountId(), requestContext.getAccount().accountId());
+            Optional<AccountEntity> tryToGetAccount = repository.findById(accountId);
+            return tryToGetAccount.map(x -> {
+                if(!Objects.equals(x.getPhone(), action.account().phone()) && repository.existsByPhone(account.phone())) {
+                    throw new ResourceConflictException("Số điện thoại đã tồn tại");
+                }
+                byte[] openingImage = prepareOpeningBeforeUpdate(account.openingImageMedia());
+                mapper.update(x, account, openingImage);
+                PrepareSaveOrUpdate.prepareUpdate(x, requestContext.getAccount());
+                AccountEntity newAccount = repository.save(x);
+                return mapper.toDto(newAccount);
+            }).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản"));
+
+        } catch (ResourceNotFoundException | ResourceConflictException e) {
+             throw e;
+        } catch (Exception e) {
+            log.error("[{}-update] Có lỗi xảy ra: {}", this.getClass().getSimpleName(), e.getMessage());
+            throw e;
+        }
+    }
+
+    private byte[] prepareOpeningBeforeUpdate(List<Media> media) {
+        if(Objects.isNull(media) || media.isEmpty()) {
+            return null;
+        }
+
+        return AppObjectMapper.convertDataToByte(media);
+    }
+    /*
+     * Use case
+     * end
+     * */
+
+    /*
+    * Use case
+    * Chủ shop xóa tài khoản QL chi nhánh
+    * Chủ shop xóa tài khoản nhân viên cắt tóc
+    * Chủ shop xóa tài khoản nhân viên massage
+    * Chủ shop xóa tài khoản tiếp tân
+    * start
+    * */
+    public void delete(AccountDeleteAction action) {
+        try {
+            Optional<AccountEntity> tryToGetAccount = repository.findById(action.accountId());
+            tryToGetAccount.ifPresentOrElse(
+                    x -> {
+                        validateDelete(x);
+                        PrepareSaveOrUpdate.prepareUpdate(x, requestContext.getAccount());
+                        x.setStatusCode(EDeleteStatus.DELETED.getCode());
+                        x.setStatusName(EDeleteStatus.DELETED.getName());
+                        repository.save(x);
+                    },
+                    () -> {
+                        throw new ResourceNotFoundException("Không tìm thấy tài khoản");
+                    }
+            );
+        } catch (ResourceNotFoundException | ResourceForbiddenException e) {
+          throw e;
+        } catch (Exception e) {
+            log.error("[{}-delete] Có lỗi xảy ra: {}", this.getClass().getSimpleName(), e.getMessage());
+            throw e;
+        }
+    }
+
+    private void validateDelete(AccountEntity deleteAccount) {
+        if(Objects.equals(requestContext.getAccount().roleCode(), ERole.BRANCH_MANAGER.getCode())) {
+            Long auditBranchId = requestContext.getAccount().branchId();
+            if(!Objects.equals(auditBranchId, deleteAccount.getBranchId())) {
+                throw new ResourceForbiddenException("Không có quyền để xóa tài khoản này");
+            }
+        }
+    }
+    /*
+     * Use case
+     * end
+     * */
 }

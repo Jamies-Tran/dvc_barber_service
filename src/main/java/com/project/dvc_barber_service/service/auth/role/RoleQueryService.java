@@ -56,4 +56,11 @@ public class RoleQueryService {
                             .withPermissions(permissions);
                 });
     }
+
+    public List<Role> findByIds(List<Long> roleIds) {
+        return repository.findByRoleIdIn(roleIds)
+                .stream()
+                .map(mapper::toDto)
+                .toList();
+    }
 }
