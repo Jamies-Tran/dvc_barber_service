@@ -9,9 +9,7 @@ import com.project.dvc_barber_service.dto.account.action.AccountFindByPhoneActio
 import com.project.dvc_barber_service.dto.account.action.AccountSearchCriteria;
 import com.project.dvc_barber_service.dto.auth.role.Role;
 import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByIdAction;
-import com.project.dvc_barber_service.repository.account.AccountEntity;
-import com.project.dvc_barber_service.repository.account.IAccountRepository;
-import com.project.dvc_barber_service.repository.account.dao.AccountLoginDAO;
+import com.project.dvc_barber_service.repository.database.account.IAccountRepository;
 import com.project.dvc_barber_service.service.auth.role.RoleQueryService;
 import com.project.dvc_barber_service.util.object.mapper.AppObjectMapper;
 import com.project.dvc_barber_service.util.request.PageRequestCustom;

@@ -1,4 +1,4 @@
-package com.project.dvc_barber_service.repository.account.dao;
+package com.project.dvc_barber_service.repository.database.account.dao;
 
 public interface AccountLoginDAO {
     Long getAccountId();

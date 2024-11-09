@@ -1,7 +1,7 @@
 package com.project.dvc_barber_service.util;
 
 import com.project.dvc_barber_service.dto.account.AccountLogin;
-import com.project.dvc_barber_service.repository.audit.AuditEntity;
+import com.project.dvc_barber_service.repository.database.audit.AuditEntity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

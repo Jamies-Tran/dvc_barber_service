@@ -1,4 +1,4 @@
-package com.project.dvc_barber_service.repository.auth.role;
+package com.project.dvc_barber_service.repository.database.auth.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

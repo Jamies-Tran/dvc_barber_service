@@ -2,8 +2,8 @@ package com.project.dvc_barber_service.service.cache;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.project.dvc_barber_service.dto.auth.RefreshToken;
-import com.project.dvc_barber_service.repository.cache.IMyCacheRepository;
-import com.project.dvc_barber_service.repository.cache.MyCacheEntity;
+import com.project.dvc_barber_service.repository.database.cache.IMyCacheRepository;
+import com.project.dvc_barber_service.repository.database.cache.MyCacheEntity;
 import com.project.dvc_barber_service.util.object.mapper.AppObjectMapper;
 import lombok.AccessLevel;
 import lombok.NonNull;

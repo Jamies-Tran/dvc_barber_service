@@ -1,4 +1,4 @@
-package com.project.dvc_barber_service.repository.cache;
+package com.project.dvc_barber_service.repository.database.cache;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

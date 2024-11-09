@@ -5,9 +5,7 @@ import com.project.dvc_barber_service.dto.auth.role.Role;
 import com.project.dvc_barber_service.dto.auth.role.permission.IRolePermissionMapper;
 import com.project.dvc_barber_service.dto.auth.role.permission.RolePermission;
 import com.project.dvc_barber_service.dto.auth.role.permission.action.RolePermissionCreateListAction;
-import com.project.dvc_barber_service.repository.auth.permission.PermissionEntity;
-import com.project.dvc_barber_service.repository.auth.role.permission.IRolePermissionRepository;
-import com.project.dvc_barber_service.repository.auth.role.permission.RolePermissionEntity;
+import com.project.dvc_barber_service.repository.database.auth.role.permission.IRolePermissionRepository;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +13,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
