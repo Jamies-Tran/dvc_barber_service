@@ -1,6 +1,6 @@
-package com.project.dvc_barber_service.repository.account;
+package com.project.dvc_barber_service.repository.database.account;
 
-import com.project.dvc_barber_service.repository.audit.AuditEntity;
+import com.project.dvc_barber_service.repository.database.audit.AuditEntity;
 import com.project.dvc_barber_service.util.object.mapper.AppObjectMapper;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

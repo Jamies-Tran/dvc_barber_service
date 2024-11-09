@@ -1,4 +1,4 @@
-package com.project.dvc_barber_service.repository.auth.permission;
+package com.project.dvc_barber_service.repository.database.auth.permission;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

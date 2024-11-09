@@ -3,7 +3,7 @@ package com.project.dvc_barber_service.service.auth.permission;
 import com.project.dvc_barber_service.dto.auth.permission.IPermissionMapper;
 import com.project.dvc_barber_service.dto.auth.permission.Permission;
 import com.project.dvc_barber_service.dto.auth.permission.action.PermissionFindByRoleIdAction;
-import com.project.dvc_barber_service.repository.auth.permission.IPermissionRepository;
+import com.project.dvc_barber_service.repository.database.auth.permission.IPermissionRepository;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

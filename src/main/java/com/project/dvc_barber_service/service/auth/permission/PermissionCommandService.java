@@ -3,8 +3,8 @@ package com.project.dvc_barber_service.service.auth.permission;
 import com.project.dvc_barber_service.dto.auth.permission.IPermissionMapper;
 import com.project.dvc_barber_service.dto.auth.permission.Permission;
 import com.project.dvc_barber_service.dto.auth.permission.action.PermissionCreateListAction;
-import com.project.dvc_barber_service.repository.auth.permission.IPermissionRepository;
-import com.project.dvc_barber_service.repository.auth.permission.PermissionEntity;
+import com.project.dvc_barber_service.repository.database.auth.permission.IPermissionRepository;
+import com.project.dvc_barber_service.repository.database.auth.permission.PermissionEntity;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Slf4j
 @Service

@@ -1,6 +1,5 @@
-package com.project.dvc_barber_service.repository.auth.role.permission;
+package com.project.dvc_barber_service.repository.database.auth.role.permission;
 
-import com.project.dvc_barber_service.dto.auth.role.permission.RolePermission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

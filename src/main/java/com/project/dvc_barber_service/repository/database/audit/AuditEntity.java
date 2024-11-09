@@ -1,4 +1,4 @@
-package com.project.dvc_barber_service.repository.audit;
+package com.project.dvc_barber_service.repository.database.audit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

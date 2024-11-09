@@ -1,8 +1,8 @@
 package com.project.dvc_barber_service.dto.account;
 
 import com.project.dvc_barber_service.dto.media.Media;
-import com.project.dvc_barber_service.repository.account.AccountEntity;
-import com.project.dvc_barber_service.repository.account.dao.AccountLoginDAO;
+import com.project.dvc_barber_service.repository.database.account.AccountEntity;
+import com.project.dvc_barber_service.repository.database.account.dao.AccountLoginDAO;
 import com.project.dvc_barber_service.util.map.struct.IObjectMapper;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;

@@ -1,7 +1,7 @@
-package com.project.dvc_barber_service.repository.account;
+package com.project.dvc_barber_service.repository.database.account;
 
 import com.project.dvc_barber_service.dto.account.action.AccountSearchCriteria;
-import com.project.dvc_barber_service.repository.account.dao.AccountLoginDAO;
+import com.project.dvc_barber_service.repository.database.account.dao.AccountLoginDAO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

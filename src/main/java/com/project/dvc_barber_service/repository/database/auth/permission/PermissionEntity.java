@@ -1,4 +1,4 @@
-package com.project.dvc_barber_service.repository.auth.permission;
+package com.project.dvc_barber_service.repository.database.auth.permission;
 
 
 import jakarta.persistence.Column;

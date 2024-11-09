@@ -1,4 +1,5 @@
-package com.project.dvc_barber_service.repository.auth.role;
+package com.project.dvc_barber_service.repository.database.auth.role.permission;
+
 
 
 import jakarta.persistence.Column;
@@ -7,11 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 @Getter
@@ -19,16 +20,22 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "roles")
+@Table(name = "role_permissions")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RoleEntity {
+public class RolePermissionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long rolePermissionId;
+
+    @Column(name = "role_id")
     Long roleId;
+
+    @Column(name = "permission_id")
+    Long permissionId;
 
     @Column(name = "role_code")
     String roleCode;
 
-    @Column(name = "role_name")
-    String roleName;
+    @Column(name = "permission_code")
+    String permissionCode;
 }
