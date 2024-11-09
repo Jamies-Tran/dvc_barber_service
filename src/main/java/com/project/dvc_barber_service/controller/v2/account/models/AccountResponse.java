@@ -1,8 +1,9 @@
 package com.project.dvc_barber_service.controller.v2.account.models;
 
-import com.project.dvc_barber_service.controller.v2.account.models.property.AccountPropertyResponse;
 import com.project.dvc_barber_service.controller.v2.account.models.role.AccountRoleResponse;
 import lombok.Builder;
+
+import java.time.LocalDateTime;
 
 @Builder
 public record AccountResponse(
@@ -11,9 +12,10 @@ public record AccountResponse(
         String lastName,
         String address,
         String phone,
+        LocalDateTime dob,
+        String avatar,
         String statusCode,
         String statusName,
-        AccountRoleResponse role,
-        AccountPropertyResponse accountProperty
+        AccountRoleResponse role
 ) {
 }

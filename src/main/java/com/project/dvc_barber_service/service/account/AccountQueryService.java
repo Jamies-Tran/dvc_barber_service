@@ -1,22 +1,25 @@
 package com.project.dvc_barber_service.service.account;
 
+import com.project.dvc_barber_service.config.handler.exception.ResourceNotFoundException;
 import com.project.dvc_barber_service.dto.account.Account;
 import com.project.dvc_barber_service.dto.account.AccountLogin;
 import com.project.dvc_barber_service.dto.account.IAccountMapper;
+import com.project.dvc_barber_service.dto.account.action.AccountFindByIdAction;
 import com.project.dvc_barber_service.dto.account.action.AccountFindByPhoneAction;
-import com.project.dvc_barber_service.dto.account.property.AccountProperty;
-import com.project.dvc_barber_service.dto.account.property.action.AccountPropFindByAccountIdAction;
+import com.project.dvc_barber_service.dto.account.action.AccountSearchCriteria;
 import com.project.dvc_barber_service.dto.auth.role.Role;
 import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByIdAction;
 import com.project.dvc_barber_service.repository.account.AccountEntity;
 import com.project.dvc_barber_service.repository.account.IAccountRepository;
 import com.project.dvc_barber_service.repository.account.dao.AccountLoginDAO;
-import com.project.dvc_barber_service.service.account.property.AccountPropertyQueryService;
 import com.project.dvc_barber_service.service.auth.role.RoleQueryService;
+import com.project.dvc_barber_service.util.object.mapper.AppObjectMapper;
+import com.project.dvc_barber_service.util.request.PageRequestCustom;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,38 +34,71 @@ public class AccountQueryService {
 
     @NonNull RoleQueryService roleQueryService;
 
-    @NonNull AccountPropertyQueryService accountPropertyQueryService;
-
     /*1-tìm tài khoản bằng số điện thoại*/
     public Optional<Account> findByPhone(AccountFindByPhoneAction action) {
-        Optional<AccountEntity> tryToGetAccount = repository.findByPhone(action.phone());
-        if (tryToGetAccount.isPresent()) {
-            AccountEntity account = tryToGetAccount.get();
-            Role role = roleQueryService
-                    .findById(RoleFindByIdAction.buildFrom(account.getRoleId()))
-                    .orElse(null);
-            AccountProperty property = accountPropertyQueryService
-                    .findByAccountId(AccountPropFindByAccountIdAction.buildFrom(account.getAccountId()))
-                    .orElse(null);
-            return Optional.of(mapper.toDto(account)
-                    .withAccountProperty(property)
-                    .withRole(role));
-        }
+        return repository.findByPhone(action.phone())
+                .map(x -> {
 
-        return Optional.empty();
+                    return mapper.toDto(x).withRole(getRole(x.getRoleId()));
+                });
     }
     /*1-end*/
 
     /*2-tìm tài khoản được xác thực*/
     public Optional<AccountLogin> findAccountLoginByPhone(AccountFindByPhoneAction action) {
-        Optional<AccountLoginDAO> tryToGetAccount = repository.findAccountLoginDAOByPhone(action.phone());
-        if (tryToGetAccount.isPresent()) {
-            AccountLoginDAO account = tryToGetAccount.get();
-
-            return Optional.of(mapper.toDto(account));
-        }
-
-        return Optional.empty();
+        return repository.findAccountLoginDAOByPhone(action.phone())
+                .map(mapper::toDto);
     }
     /*2-end*/
+
+    /*
+    * Use case
+    * Chủ shop xem danh tài khoản trong hệ thống
+    * Chủ shop xem danh sách tài khoản trong chi nhánh
+    * QL chi nhánh xem danh sách tài khoản trong chi nhánh
+    * Nhân viên cắt tóc xem danh sách tài khoản trong chi nhánh
+    * Nhân viên massage xem danh sách tài khoản trong chi nhánh
+    * Nhân viên tiếp tân xem danh sách tài khoản trong chi nhánh
+    * start
+    * */
+    public Page<Account> findAll(AccountSearchCriteria searchCriteria, PageRequestCustom pageRequestCustom) {
+        return repository.findAll(searchCriteria, pageRequestCustom.pageRequest())
+                .map(x -> mapper.toDto(x, AppObjectMapper.convertImageList(x.getOpeningImage())));
+    }
+    /*
+    * Use case
+    * end
+    * */
+
+    /*
+    * Use case
+    *
+    * start
+    * */
+    public Account findById(AccountFindByIdAction action) {
+        try {
+            return repository.findById(action.accountId())
+                    .map(x -> mapper.toDto(x)
+                            .withRole(getRole(x.getRoleId()))
+                            .withOpeningImageMedia(AppObjectMapper.convertImageList(x.getOpeningImage())))
+                    .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản"));
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        }
+    }
+    /*
+    * Use case
+    * end
+    * */
+
+    /*
+    * Tìm xác thức của tài khoản
+    * start
+    * */
+    private Role getRole(Long roleId) {
+        return roleQueryService
+                .findById(RoleFindByIdAction.buildFrom(roleId))
+                .orElse(null);
+    }
+    /*end*/
 }

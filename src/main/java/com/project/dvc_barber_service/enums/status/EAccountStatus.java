@@ -14,8 +14,7 @@ import java.util.stream.Stream;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum EAccountStatus {
     ENABLED("ENABLED", "Hoạt động"),
-    DISABLED("DISABLED", "Vô hiệu hóa"),
-    DELETED("DELETED", "Xóa");
+    DISABLED("DISABLED", "Vô hiệu hóa");
 
     String code;
     String name;

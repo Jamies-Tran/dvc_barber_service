@@ -7,6 +7,6 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface IIdentificationMapper {
-    @Mapping(target = "accountCode", source = "accountProperty.accountCode")
+
     Identification from(Account account);
 }

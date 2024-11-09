@@ -1,12 +1,14 @@
 package com.project.dvc_barber_service.repository.account;
 
-import com.project.dvc_barber_service.dto.account.AccountLogin;
 import com.project.dvc_barber_service.repository.audit.AuditEntity;
+import com.project.dvc_barber_service.util.object.mapper.AppObjectMapper;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,8 @@ import lombok.With;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -29,6 +33,12 @@ public class AccountEntity extends AuditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long accountId;
+
+    @Column(name = "branch_id")
+    Long branchId;
+
+    @Column(name = "account_code")
+    String accountCode;
 
     @Column(name = "first_name")
     String firstName;
@@ -45,16 +55,40 @@ public class AccountEntity extends AuditEntity {
     @Column(name = "password")
     String password;
 
-    @Column(name = "status_code")
-    @With
-    String statusCode;
+    @Column(name = "dob")
+    LocalDateTime dob;
 
-    @Column(name = "status_name")
-    @With
-    String statusName;
+    @Column(name = "avatar")
+    String avatar;
 
+    @Lob
+    @Column(name = "opening_image")
+    byte[] openingImage;
+
+    @With
+    @Column(name = "expertise_code")
+    String expertiseCode;
+
+    @With
+    @Column(name = "expertise_name")
+    String expertiseName;
+
+    @With
     @Column(name = "role_id")
-    @With
     Long roleId;
 
+    @With
+    @Column(name = "status_code")
+    String statusCode;
+
+    @With
+    @Column(name = "status_name")
+    String statusName;
+
+    @PrePersist
+    public void prePersist() {
+        if(Objects.isNull(openingImage)) {
+            openingImage = AppObjectMapper.convertDataToByte(List.of());
+        }
+    }
 }
