@@ -10,6 +10,7 @@ import com.project.dvc_barber_service.dto.account.IAccountMapper;
 import com.project.dvc_barber_service.dto.account.action.AccountCreateAction;
 import com.project.dvc_barber_service.dto.account.action.AccountDeleteAction;
 import com.project.dvc_barber_service.dto.account.action.AccountUpdateAction;
+import com.project.dvc_barber_service.dto.account.action.AccountUpdatePasswordAction;
 import com.project.dvc_barber_service.dto.auth.role.Role;
 import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByCodeAction;
 import com.project.dvc_barber_service.dto.media.Media;
@@ -70,8 +71,9 @@ public class AccountCommandService {
      * start
      ***/
     public Account save(AccountCreateAction action) {
+        String pasword = Objects.requireNonNullElse(action.account().password(), defaultPassword);
         Account account = action.account()
-                .withPassword(passwordEncoder.encode(defaultPassword));
+                .withPassword(passwordEncoder.encode(pasword));
         try {
             if (repository.existsByPhone(account.phone())) {
                 throw new ResourceConflictException("số điện thoại đã tồn tại");
@@ -238,4 +240,37 @@ public class AccountCommandService {
      * Use case
      * end
      * */
+
+    /*
+     * Use case
+     * QL chi nhánh cập nhật mật khẩu
+     * Nhân viên cắt tóc cập nhật mật khẩu
+     * Nhân viên massage cập nhật mật khẩu
+     * Nhân viên tiếp tân cập nhật mật khẩu
+     * Khách hàng cập nhật mật khẩu
+     * start
+     * */
+    public Account updatePassword(AccountUpdatePasswordAction action) {
+        try {
+            return repository.findById(requestContext.getAccount().accountId())
+                    .map(x -> {
+                        if(!passwordEncoder.matches(action.oldPassword(), x.getPassword())) {
+                            throw new ResourceForbiddenException("Mật khẩu cũ không đúng");
+                        }
+                        x.setPassword(passwordEncoder.encode(action.newPassword()));
+                        PrepareSaveOrUpdate.prepareUpdate(x, requestContext.getAccount());
+                        AccountEntity updateAccount = repository.save(x);
+                        return mapper.toDto(updateAccount);
+                    }).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản"));
+        } catch (ResourceForbiddenException | ResourceNotFoundException e) {
+          throw e;
+        } catch (Exception e) {
+            log.error("[{}-updatePassword] Có lỗi xảy ra: {}", this.getClass().getSimpleName(), e.getMessage());
+            throw e;
+        }
+    }
+    /*
+    * Use case
+    * end
+    * */
 }

@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, implementationName = "AccountReqModelMapperV2")
-public interface IAccountReqModelMapper extends IModelMapper<AccountRequest, Account> {
-    Account toDto(AccountUpdateRequest dto);
+public interface IAccountReqV2ModelMapper extends IModelMapper<AccountV2Request, Account> {
+    Account toDto(AccountUpdateV2Request dto);
 }

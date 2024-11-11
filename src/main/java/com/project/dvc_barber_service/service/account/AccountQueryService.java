@@ -50,15 +50,18 @@ public class AccountQueryService {
     /*2-end*/
 
     /*
-    * Use case
-    * Chủ shop xem danh tài khoản trong hệ thống
-    * Chủ shop xem danh sách tài khoản trong chi nhánh
-    * QL chi nhánh xem danh sách tài khoản trong chi nhánh
-    * Nhân viên cắt tóc xem danh sách tài khoản trong chi nhánh
-    * Nhân viên massage xem danh sách tài khoản trong chi nhánh
-    * Nhân viên tiếp tân xem danh sách tài khoản trong chi nhánh
-    * start
-    * */
+     * Use case
+     * Chủ shop xem danh tài khoản trong hệ thống
+     * Chủ shop xem danh sách tài khoản trong chi nhánh
+     * QL chi nhánh xem danh sách tài khoản trong chi nhánh
+     * QL chi nhánh xem danh sách tài khoản trong hệ thông
+     * Nhân viên massage xem danh sách tài khoản trong chi nhánh
+     * Nhân viên tiếp tân xem danh sách tài khoản trong chi nhánh
+     * Nhân viên tiếp tân xem danh sách tài khoản trong hệ thống
+     * Khách hàng xem danh sách tài khoản trong chi nhánh
+     * Khách hàng xem danh sách tài khoản trong hệ thống
+     * start
+     * */
     public Page<Account> findAll(AccountSearchCriteria searchCriteria, PageRequestCustom pageRequestCustom) {
         return repository.findAll(searchCriteria, pageRequestCustom.pageRequest())
                 .map(x -> mapper.toDto(x, AppObjectMapper.convertImageList(x.getOpeningImage())));
@@ -69,10 +72,14 @@ public class AccountQueryService {
     * */
 
     /*
-    * Use case
-    *
-    * start
-    * */
+     * Use case
+     * Chủ shop xem chi tiết tài khoản trong hệ thống
+     * QL chi nhánh xem chi tiết tài khoản trong hệ thống
+     * Nhân viên cắt tóc xem chi tiết tài khoản trong hệ thống
+     * Nhân viên massage xem chi tiết tài khoản trong hệ thống
+     * Nhân viên tiếp tân xem chi tiết tài khoản trong hệ thống
+     * start
+     * */
     public Account findById(AccountFindByIdAction action) {
         try {
             return repository.findById(action.accountId())

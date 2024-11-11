@@ -2,6 +2,7 @@ package com.project.dvc_barber_service.controller.v1.account;
 
 import com.project.dvc_barber_service.controller.v1.account.models.AccountRequest;
 import com.project.dvc_barber_service.controller.v1.account.models.AccountUpdateRequest;
+import com.project.dvc_barber_service.controller.v1.account.models.UpdatePasswordRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.Min;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +38,18 @@ public interface IAccountAPI {
      ***/
     @PostMapping
     @PreAuthorize("hasAuthority('account:create')")
-    @Operation(summary = "Tạo tài khoản")
+    @Operation(
+            summary = "Tạo tài khoản",
+            description = """
+                    - Chủ shop tạo tài khoản QL chi nhánh
+                    - Chủ shop tạo tài khoản nhân viên cắt tóc trong chi nhánh
+                    - Chủ shop tạo tài khoản nhân viên massage trong chi nhánh
+                    - Chủ shop tạo tài khoản tiếp tân trong chi nhánh
+                    - QL chi nhánh tạo tài khoản nhân viên cắt tóc
+                    - QL chi nhánh tạo tài khoản nhân viên massage
+                    - QL chi nhánh tạo tài khoản tiếp tân trong
+                    """
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -68,7 +81,16 @@ public interface IAccountAPI {
      * */
     @PutMapping("/self-update")
     @PreAuthorize("hasAuthority('account:self-update')")
-    @Operation(summary = "Cập nhật thông tin cá nhân")
+    @Operation(
+            summary = "Cập nhật thông tin cá nhân",
+            description = """
+                    - Chủ Shop cập nhật thông tin tài khoản
+                    - QL chi nhánh cập nhật thông tin tài khoản
+                    - Nhân viên cắt tóc cập nhật thông tin tài khoản
+                    - Nhân viên massage cập nhật thông tin tài khoản
+                    - Nhân viên tiếp tân cập nhật thông tin tài khoản
+                    """
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -91,12 +113,32 @@ public interface IAccountAPI {
 
     /*
      * Use case
-     *
+     * Chủ shop xem danh tài khoản trong hệ thống
+     * Chủ shop xem danh sách tài khoản trong chi nhánh
+     * QL chi nhánh xem danh sách tài khoản trong chi nhánh
+     * QL chi nhánh xem danh sách tài khoản trong hệ thông
+     * Nhân viên massage xem danh sách tài khoản trong chi nhánh
+     * Nhân viên tiếp tân xem danh sách tài khoản trong chi nhánh
+     * Nhân viên tiếp tân xem danh sách tài khoản trong hệ thống
+     * Khách hàng xem danh sách tài khoản trong chi nhánh
+     * Khách hàng xem danh sách tài khoản trong hệ thống
      * start
      * */
     @GetMapping
     @PreAuthorize("hasAuthority('account:view-list')")
-    @Operation(summary = "Tìm kiếm danh sách tài khoản")
+    @Operation(
+            summary = "Tìm kiếm danh sách tài khoản",
+            description = """          
+                        - Chủ shop xem danh tài khoản trong hệ thống
+                        - Chủ shop xem danh sách tài khoản trong chi nhánh
+                        - QL chi nhánh xem danh sách tài khoản trong chi nhánh
+                        - QL chi nhánh xem danh sách tài khoản trong hệ thông
+                        - Nhân viên massage xem danh sách tài khoản trong chi nhánh
+                        - Nhân viên tiếp tân xem danh sách tài khoản trong chi nhánh
+                        - Nhân viên tiếp tân xem danh sách tài khoản trong hệ thống
+                        - Khách hàng xem danh sách tài khoản trong chi nhánh
+                        - Khách hàng xem danh sách tài khoản trong hệ thống
+                    """)
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -116,6 +158,46 @@ public interface IAccountAPI {
             @RequestParam(required = false, value = "current", defaultValue = "1") @Min(1) Integer current,
             @RequestParam(required = false, value = "pageSize", defaultValue = "20") Integer pageSize
     );
+    /*
+     * Use case
+     * end
+     * */
+
+    /*
+     * Use case
+     * QL chi nhánh cập nhật mật khẩu
+     * Nhân viên cắt tóc cập nhật mật khẩu
+     * Nhân viên massage cập nhật mật khẩu
+     * Nhân viên tiếp tân cập nhật mật khẩu
+     * Khách hàng cập nhật mật khẩu
+     * start
+     * */
+    @PutMapping("/change-password")
+    @PreAuthorize("hasAuthority('account:self-update')")
+    @Operation(
+            summary = "Tìm kiếm danh sách tài khoản",
+            description = """          
+                        - QL chi nhánh cập nhật mật khẩu
+                        - Nhân viên cắt tóc cập nhật mật khẩu
+                        - Nhân viên massage cập nhật mật khẩu
+                        - Nhân viên tiếp tân cập nhật mật khẩu
+                        - Khách hàng cập nhật mật khẩu
+                    """)
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Cập nhật mật khẩu thành công"),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Không tìm thấy tài khoản"),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Mật khẩu cũ không khớp với mật khẩu hiện tại"),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Lỗi hệ thống")
+    })
+    ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordRequest request);
     /*
      * Use case
      * end
