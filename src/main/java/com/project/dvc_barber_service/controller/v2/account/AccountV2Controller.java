@@ -3,16 +3,15 @@ package com.project.dvc_barber_service.controller.v2.account;
 
 import com.project.dvc_barber_service.config.handler.exception.ResourceConflictException;
 import com.project.dvc_barber_service.config.handler.exception.ResourceNotFoundException;
-import com.project.dvc_barber_service.controller.v2.account.models.AccountRequest;
-import com.project.dvc_barber_service.controller.v2.account.models.AccountResponse;
-import com.project.dvc_barber_service.controller.v2.account.models.IAccountReqModelMapper;
-import com.project.dvc_barber_service.controller.v2.account.models.IAccountResModelMapper;
+import com.project.dvc_barber_service.controller.v2.account.models.AccountV2Request;
+import com.project.dvc_barber_service.controller.v2.account.models.AccountV2Response;
+import com.project.dvc_barber_service.controller.v2.account.models.IAccountReqV2ModelMapper;
+import com.project.dvc_barber_service.controller.v2.account.models.IAccountResV2ModelMapper;
 import com.project.dvc_barber_service.dto.account.Account;
 import com.project.dvc_barber_service.dto.account.action.AccountCreateAction;
 import com.project.dvc_barber_service.dto.account.action.AccountSearchCriteria;
 import com.project.dvc_barber_service.dto.account.action.AccountUpdateAction;
 import com.project.dvc_barber_service.dto.auth.role.Role;
-import com.project.dvc_barber_service.enums.expertise.EExpertise;
 import com.project.dvc_barber_service.enums.role.ERole;
 import com.project.dvc_barber_service.enums.status.EAccountStatus;
 import com.project.dvc_barber_service.service.account.usecase.IAccountUseCase;
@@ -38,9 +37,11 @@ import java.util.List;
 public class AccountV2Controller implements IAccountV2API {
     @NonNull IAccountUseCase useCase;
 
-    @NonNull IAccountResModelMapper resModelMapper;
+    @NonNull
+    IAccountResV2ModelMapper resModelMapper;
 
-    @NonNull IAccountReqModelMapper reqModelMapper;
+    @NonNull
+    IAccountReqV2ModelMapper reqModelMapper;
 
     /*
      * Use case
@@ -48,7 +49,7 @@ public class AccountV2Controller implements IAccountV2API {
      * start
      ***/
     @Override
-    public ResponseEntity<?> save(AccountRequest request) {
+    public ResponseEntity<?> save(AccountV2Request request) {
         try {
             ERole role = ERole.getByCode(ERole.CUSTOMER.getCode())
                     .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy phân quyền của tài khoản"));
@@ -76,7 +77,7 @@ public class AccountV2Controller implements IAccountV2API {
      * start
      ***/
     @Override
-    public ResponseEntity<?> selfUpdate(AccountRequest request) {
+    public ResponseEntity<?> selfUpdate(AccountV2Request request) {
         try {
             Account account = reqModelMapper.toDto(request);
             Account updatedAccount = useCase.update(AccountUpdateAction.buildFrom(account));
@@ -120,7 +121,7 @@ public class AccountV2Controller implements IAccountV2API {
                     .statusCodes(List.of(EAccountStatus.ENABLED.getCode()))
                     .build();
             PageRequestCustom pageRequestCustom = PageRequestCustom.buildFrom(current, pageSize, sorter);
-            Page<AccountResponse> responses = useCase.findAll(searchCriteria, pageRequestCustom)
+            Page<AccountV2Response> responses = useCase.findAll(searchCriteria, pageRequestCustom)
                     .map(resModelMapper::toModel);
 
             return ResponseEntity.ok(PageResponse.success(responses, "Đã tìm thấy DS tài khoản."));

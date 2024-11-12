@@ -1,6 +1,7 @@
 package com.project.dvc_barber_service.controller.v1.account;
 
 import com.project.dvc_barber_service.controller.v1.account.models.AccountUpdateRequest;
+import com.project.dvc_barber_service.controller.v1.account.models.UpdatePasswordRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -33,7 +34,18 @@ public interface IAccountPathAPI {
      * */
     @PutMapping
     @PreAuthorize("hasAuthority('account:update')")
-    @Operation(summary = "Cập nhật thông tin tài khoản")
+    @Operation(
+            summary = "Cập nhật thông tin tài khoản",
+            description = """
+                    - Chủ shop cập nhật thông tin tài khoản QL chi nhánh
+                    - Chủ shop cập nhật thông tin tài khoản nhân viên cắt tóc
+                    - Chủ shop cập nhật thông tin tài khoản nhân viên massage
+                    - Chủ shop cập nhật thông tin tài khoản tiếp tân
+                    - QL chi nhánh cập nhật tài khoản nhân viên cắt tóc
+                    - QL chi nhánh cập nhật tài khoản nhân viên massage
+                    - QL chi nhánh cập nhật tài khoản tiếp tân
+                    """
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -64,7 +76,15 @@ public interface IAccountPathAPI {
      * */
     @DeleteMapping
     @PreAuthorize("hasAuthority('account:delete')")
-    @Operation(summary = "Xóa tài khoản")
+    @Operation(
+            summary = "Xóa tài khoản",
+            description = """
+                    - Chủ shop xóa tài khoản QL chi nhánh
+                    - Chủ shop xóa tài khoản nhân viên cắt tóc
+                    - Chủ shop xóa tài khoản nhân viên massage
+                    - Chủ shop xóa tài khoản tiếp tân
+                    """
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -87,12 +107,25 @@ public interface IAccountPathAPI {
 
     /*
     * Use case
-    *
+    * Chủ shop xem chi tiết tài khoản trong hệ thống
+    * QL chi nhánh xem chi tiết tài khoản trong hệ thống
+    * Nhân viên cắt tóc xem chi tiết tài khoản trong hệ thống
+    * Nhân viên massage xem chi tiết tài khoản trong hệ thống
+    * Nhân viên tiếp tân xem chi tiết tài khoản trong hệ thống
     * start
     * */
     @GetMapping
     @PreAuthorize("hasAuthority('account:view-detail')")
-    @Operation(summary = "Xem chi tiết tài khoản")
+    @Operation(
+            summary = "Xem chi tiết tài khoản",
+            description = """
+                    - Chủ shop xem chi tiết tài khoản trong hệ thống
+                    - QL chi nhánh xem chi tiết tài khoản trong hệ thống
+                    - Nhân viên cắt tóc xem chi tiết tài khoản trong hệ thống
+                    - Nhân viên massage xem chi tiết tài khoản trong hệ thống
+                    - Nhân viên tiếp tân xem chi tiết tài khoản trong hệ thống    
+                    """
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",

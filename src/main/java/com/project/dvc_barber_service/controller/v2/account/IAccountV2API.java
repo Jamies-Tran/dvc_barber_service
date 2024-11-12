@@ -1,6 +1,6 @@
 package com.project.dvc_barber_service.controller.v2.account;
 
-import com.project.dvc_barber_service.controller.v2.account.models.AccountRequest;
+import com.project.dvc_barber_service.controller.v2.account.models.AccountV2Request;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -26,7 +26,12 @@ public interface IAccountV2API {
      * start
      ***/
     @PostMapping
-    @Operation(summary = "Tạo tài khoản cho khách hàng")
+    @Operation(
+            summary = "Tạo tài khoản cho khách hàng",
+            description = """
+                    - Khách hang tạo tài khoản
+                    """
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -41,7 +46,7 @@ public interface IAccountV2API {
                     responseCode = "500",
                     description = "Lỗi hệ thống")
     })
-    ResponseEntity<?> save(@RequestBody AccountRequest request);
+    ResponseEntity<?> save(@RequestBody AccountV2Request request);
     /*
      * Use case
      * end
@@ -54,7 +59,12 @@ public interface IAccountV2API {
      ***/
     @PutMapping("/self-update")
     @PreAuthorize("hasAuthority('account:update')")
-    @Operation(summary = "Cập nhật thông tin cá nhân")
+    @Operation(
+            summary = "Cập nhật thông tin cá nhân",
+            description = """
+                    - Khách hàng cập nhật thông tin tài khoản
+                    """
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -69,7 +79,7 @@ public interface IAccountV2API {
                     responseCode = "500",
                     description = "Lỗi hệ thống")
     })
-    ResponseEntity<?> selfUpdate(@RequestBody AccountRequest request);
+    ResponseEntity<?> selfUpdate(@RequestBody AccountV2Request request);
     /*
      * Use case
      * Khách hàng cập nhật thông tin tài khoản
@@ -83,7 +93,12 @@ public interface IAccountV2API {
      * */
     @GetMapping
     @PreAuthorize("hasAuthority('account:view-list')")
-    @Operation(summary = "Tìm kiếm danh sách tài khoản cho khách hàng")
+    @Operation(
+            summary = "Tìm kiếm danh sách tài khoản cho khách hàng",
+            description = """
+                    - Khách hàng xem ds tài khoản trong hệ thống
+                    """
+    )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",

@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, implementationName = "AccountResModelMapperV2")
-public interface IAccountResModelMapper extends IModelMapper<AccountResponse, Account> {
+public interface IAccountResV2ModelMapper extends IModelMapper<AccountV2Response, Account> {
 }

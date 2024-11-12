@@ -7,10 +7,12 @@ import com.project.dvc_barber_service.controller.v1.account.models.AccountRespon
 import com.project.dvc_barber_service.controller.v1.account.models.AccountUpdateRequest;
 import com.project.dvc_barber_service.controller.v1.account.models.IAccountReqModelMapper;
 import com.project.dvc_barber_service.controller.v1.account.models.IAccountResModelMapper;
+import com.project.dvc_barber_service.controller.v1.account.models.UpdatePasswordRequest;
 import com.project.dvc_barber_service.dto.account.Account;
 import com.project.dvc_barber_service.dto.account.action.AccountDeleteAction;
 import com.project.dvc_barber_service.dto.account.action.AccountFindByIdAction;
 import com.project.dvc_barber_service.dto.account.action.AccountUpdateAction;
+import com.project.dvc_barber_service.dto.account.action.AccountUpdatePasswordAction;
 import com.project.dvc_barber_service.service.account.usecase.IAccountUseCase;
 import com.project.dvc_barber_service.util.response.ValueResponse;
 import lombok.AccessLevel;
@@ -93,7 +95,11 @@ public class AccountPathController implements IAccountPathAPI {
 
     /*
      * Use case
-     *
+     * Chủ shop xem chi tiết tài khoản trong hệ thống
+     * QL chi nhánh xem chi tiết tài khoản trong hệ thống
+     * Nhân viên cắt tóc xem chi tiết tài khoản trong hệ thống
+     * Nhân viên massage xem chi tiết tài khoản trong hệ thống
+     * Nhân viên tiếp tân xem chi tiết tài khoản trong hệ thống
      * start
      * */
     @Override
