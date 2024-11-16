@@ -1,6 +1,5 @@
 package com.project.dvc_barber_service.dto.account.action;
 
-import com.project.dvc_barber_service.enums.status.EAccountStatus;
 import lombok.Builder;
 import org.springframework.util.StringUtils;
 

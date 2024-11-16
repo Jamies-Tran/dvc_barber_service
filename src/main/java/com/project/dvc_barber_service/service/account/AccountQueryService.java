@@ -81,15 +81,11 @@ public class AccountQueryService {
      * start
      * */
     public Account findById(AccountFindByIdAction action) {
-        try {
-            return repository.findById(action.accountId())
-                    .map(x -> mapper.toDto(x)
-                            .withRole(getRole(x.getRoleId()))
-                            .withOpeningImageMedia(AppObjectMapper.convertImageList(x.getOpeningImage())))
-                    .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản"));
-        } catch (ResourceNotFoundException e) {
-            throw e;
-        }
+        return repository.findById(action.accountId())
+                .map(x -> mapper.toDto(x)
+                        .withRole(getRole(x.getRoleId()))
+                        .withOpeningImageMedia(AppObjectMapper.convertImageList(x.getOpeningImage())))
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản"));
     }
     /*
     * Use case

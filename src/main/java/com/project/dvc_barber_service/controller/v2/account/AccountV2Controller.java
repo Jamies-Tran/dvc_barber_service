@@ -13,7 +13,7 @@ import com.project.dvc_barber_service.dto.account.action.AccountSearchCriteria;
 import com.project.dvc_barber_service.dto.account.action.AccountUpdateAction;
 import com.project.dvc_barber_service.dto.auth.role.Role;
 import com.project.dvc_barber_service.enums.role.ERole;
-import com.project.dvc_barber_service.enums.status.EAccountStatus;
+import com.project.dvc_barber_service.enums.status.account.EAccountStatus;
 import com.project.dvc_barber_service.service.account.usecase.IAccountUseCase;
 import com.project.dvc_barber_service.util.request.PageRequestCustom;
 import com.project.dvc_barber_service.util.response.PageResponse;

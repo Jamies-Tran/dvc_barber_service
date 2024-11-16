@@ -3,8 +3,6 @@ package com.project.dvc_barber_service.service.auth.user;
 import com.project.dvc_barber_service.config.handler.exception.IdentificationException;
 import com.project.dvc_barber_service.dto.account.Account;
 import com.project.dvc_barber_service.dto.account.action.AccountFindByPhoneAction;
-import com.project.dvc_barber_service.enums.role.ERole;
-import com.project.dvc_barber_service.enums.status.EAccountStatus;
 import com.project.dvc_barber_service.service.account.AccountQueryService;
 import lombok.AccessLevel;
 import lombok.NonNull;
@@ -16,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @Service

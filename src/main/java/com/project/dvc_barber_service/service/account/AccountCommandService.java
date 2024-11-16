@@ -16,7 +16,7 @@ import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByCodeAction;
 import com.project.dvc_barber_service.dto.media.Media;
 import com.project.dvc_barber_service.enums.expertise.EExpertise;
 import com.project.dvc_barber_service.enums.role.ERole;
-import com.project.dvc_barber_service.enums.status.EAccountStatus;
+import com.project.dvc_barber_service.enums.status.account.EAccountStatus;
 import com.project.dvc_barber_service.enums.status.EDeleteStatus;
 import com.project.dvc_barber_service.repository.database.account.AccountEntity;
 import com.project.dvc_barber_service.repository.database.account.IAccountRepository;
@@ -71,9 +71,9 @@ public class AccountCommandService {
      * start
      ***/
     public Account save(AccountCreateAction action) {
-        String pasword = Objects.requireNonNullElse(action.account().password(), defaultPassword);
+        String password = Objects.requireNonNullElse(action.account().password(), defaultPassword);
         Account account = action.account()
-                .withPassword(passwordEncoder.encode(pasword));
+                .withPassword(passwordEncoder.encode(password));
         try {
             if (repository.existsByPhone(account.phone())) {
                 throw new ResourceConflictException("số điện thoại đã tồn tại");
@@ -84,11 +84,6 @@ public class AccountCommandService {
                     .withRoleId(role.roleId())
                     .withStatusCode(status.getCode())
                     .withStatusName(status.getName());
-            tryToGetExpertise(account.expertiseCode())
-                    .ifPresent(x -> {
-                        newAccount.setExpertiseCode(x.getCode());
-                        newAccount.setExpertiseName(x.getName());
-                    });
             AccountLogin accountLogin = prepareAccountLogin(role.roleCode());
             PrepareSaveOrUpdate.prepareSave(newAccount, accountLogin);
             AccountEntity savedAccount = repository.save(newAccount);
@@ -103,10 +98,6 @@ public class AccountCommandService {
             log.error("[{}-create] có lỗi xảy ra: {}", this.getClass().getSimpleName(), e.getMessage());
             throw e;
         }
-    }
-
-    private Optional<EExpertise> tryToGetExpertise(String expertiseCode) {
-        return EExpertise.getByCode(expertiseCode);
     }
 
     private AccountLogin prepareAccountLogin(String roleCode) {
