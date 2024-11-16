@@ -14,7 +14,6 @@ import com.project.dvc_barber_service.dto.account.action.AccountUpdatePasswordAc
 import com.project.dvc_barber_service.dto.auth.role.Role;
 import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByCodeAction;
 import com.project.dvc_barber_service.dto.media.Media;
-import com.project.dvc_barber_service.enums.expertise.EExpertise;
 import com.project.dvc_barber_service.enums.role.ERole;
 import com.project.dvc_barber_service.enums.status.account.EAccountStatus;
 import com.project.dvc_barber_service.enums.status.EDeleteStatus;

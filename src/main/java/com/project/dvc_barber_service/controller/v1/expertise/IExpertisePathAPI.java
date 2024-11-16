@@ -34,8 +34,7 @@ public interface IExpertisePathAPI {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "xem chi tiết danh mục chuyên môn thành công" +
-                            ""),
+                    description = "xem chi tiết danh mục chuyên môn thành công"),
             @ApiResponse(
                     responseCode = "404",
                     description = "Không tìm thấy danh mục chuyên môn")
