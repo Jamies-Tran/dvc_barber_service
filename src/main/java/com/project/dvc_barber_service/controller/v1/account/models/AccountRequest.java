@@ -10,7 +10,6 @@ public record AccountRequest(
         String address,
         String phone,
         String avatar,
-        String expertiseCode,
         String roleCode
 ) {
 }

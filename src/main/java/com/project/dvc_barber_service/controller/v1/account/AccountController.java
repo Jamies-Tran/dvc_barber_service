@@ -15,7 +15,6 @@ import com.project.dvc_barber_service.dto.account.action.AccountSearchCriteria;
 import com.project.dvc_barber_service.dto.account.action.AccountUpdateAction;
 import com.project.dvc_barber_service.dto.account.action.AccountUpdatePasswordAction;
 import com.project.dvc_barber_service.dto.auth.role.Role;
-import com.project.dvc_barber_service.enums.expertise.EExpertise;
 import com.project.dvc_barber_service.enums.role.ERole;
 import com.project.dvc_barber_service.service.account.usecase.IAccountUseCase;
 import com.project.dvc_barber_service.util.request.PageRequestCustom;
@@ -61,11 +60,9 @@ public class AccountController implements IAccountAPI {
         try {
             ERole role = ERole.getByCode(request.roleCode())
                     .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy phân quyền của tài khoản"));
-            EExpertise expertise = EExpertise.getByCode(request.expertiseCode())
-                    .orElse(null);
             Account account = reqModelMapper.toDto(request)
                     .withRole(Role.buildFrom(role));
-            Account savedAccount = useCase.save(AccountCreateAction.buildFrom(account, role, expertise));
+            Account savedAccount = useCase.save(AccountCreateAction.buildFrom(account, role));
 
             return ResponseEntity.ok(ValueResponse.success(resModelMapper.toModel(savedAccount),
                     "Tạo tài khoản thành công."));

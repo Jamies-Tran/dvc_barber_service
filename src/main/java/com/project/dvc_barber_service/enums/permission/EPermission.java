@@ -20,7 +20,11 @@ public enum EPermission {
     ACCOUNT_VIEW_DETAIL("ACCOUNT_VIEW_DETAIL", "account", "view-detail"),
     ACCOUNT_SELF_VIEW("ACCOUNT_SELF_VIEW", "account", "self-view"),
     ACCOUNT_DELETE("ACCOUNT_DELETE", "account", "delete"),
-    BRANCH_CREATE("BRANCH_CREATE", "branch", "create"),;
+    BRANCH_CREATE("BRANCH_CREATE", "branch", "create"),
+    EXPERTISE_CREATE("EXPERTISE_CREATE", "expertise", "create"),
+    EXPERTISE_UPDATE("EXPERTISE_UPDATE", "expertise", "update"),
+    EXPERTISE_DELETE("EXPERTISE_DELETE", "expertise", "delete"),
+    EXPERTISE_VIEW_DETAIL("EXPERTISE_VIEW_DETAIL", "expertise", "view-detail"),;
 
     String code;
     String key;

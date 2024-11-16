@@ -9,8 +9,7 @@ import lombok.Builder;
 public record AccountCreateAction(
         Account account,
         Long branchId,
-        ERole role,
-        EExpertise expertise
+        ERole role
 ) {
     public static AccountCreateAction buildFrom(Account account, Long branchId, ERole role) {
         return AccountCreateAction.builder()
@@ -23,14 +22,6 @@ public record AccountCreateAction(
     public static AccountCreateAction buildFrom(Account account, ERole role) {
         return AccountCreateAction.builder()
                 .account(account)
-                .role(role)
-                .build();
-    }
-
-    public static AccountCreateAction buildFrom(Account account, ERole role, EExpertise expertise) {
-        return AccountCreateAction.builder()
-                .account(account)
-                .expertise(expertise)
                 .role(role)
                 .build();
     }

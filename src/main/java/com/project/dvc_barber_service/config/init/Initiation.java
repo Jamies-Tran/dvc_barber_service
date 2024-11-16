@@ -72,7 +72,11 @@ public class Initiation {
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
                         Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
-                        Permission.buildFrom(EPermission.BRANCH_CREATE));
+                        Permission.buildFrom(EPermission.BRANCH_CREATE),
+                        Permission.buildFrom(EPermission.EXPERTISE_CREATE),
+                        Permission.buildFrom(EPermission.EXPERTISE_UPDATE),
+                        Permission.buildFrom(EPermission.EXPERTISE_DELETE),
+                        Permission.buildFrom(EPermission.EXPERTISE_VIEW_DETAIL));
             }
             case BRANCH_MANAGER -> {
                 return List.of(
@@ -82,7 +86,8 @@ public class Initiation {
                         Permission.buildFrom(EPermission.ACCOUNT_DELETE),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
-                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW));
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
+                        Permission.buildFrom(EPermission.EXPERTISE_VIEW_DETAIL));
             }
             case SERVICE_STAFF -> {
                 return List.of(
@@ -121,7 +126,7 @@ public class Initiation {
                     .password(defaultPassword)
                     .phone(initAccountPhone)
                     .build();
-            accountUseCase.save(AccountCreateAction.buildFrom(account, ERole.SHOP_OWNER, null));
+            accountUseCase.save(AccountCreateAction.buildFrom(account, ERole.SHOP_OWNER));
         }
     }
     /*2-end*/

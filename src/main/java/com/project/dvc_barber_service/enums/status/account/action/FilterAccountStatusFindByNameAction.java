@@ -1,4 +1,4 @@
-package com.project.dvc_barber_service.enums.status.action;
+package com.project.dvc_barber_service.enums.status.account.action;
 
 import lombok.Builder;
 

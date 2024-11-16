@@ -1,7 +1,7 @@
 package com.project.dvc_barber_service.controller.v3.filter.status.account;
 
 import com.project.dvc_barber_service.controller.v3.filter.status.account.models.AccountStatusResponse;
-import com.project.dvc_barber_service.enums.status.action.FilterAccountStatusFindByNameAction;
+import com.project.dvc_barber_service.enums.status.account.action.FilterAccountStatusFindByNameAction;
 import com.project.dvc_barber_service.service.filter.status.account.usecase.IFilterAccountStatusUseCase;
 import com.project.dvc_barber_service.util.response.ListResponse;
 import lombok.AccessLevel;

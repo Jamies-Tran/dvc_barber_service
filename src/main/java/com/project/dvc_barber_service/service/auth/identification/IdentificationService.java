@@ -12,7 +12,7 @@ import com.project.dvc_barber_service.dto.auth.identification.Token;
 import com.project.dvc_barber_service.dto.auth.identification.action.RefreshTokenAction;
 import com.project.dvc_barber_service.dto.auth.identification.action.VerifyIdentificationAction;
 import com.project.dvc_barber_service.dto.cache.MyCache;
-import com.project.dvc_barber_service.enums.status.EAccountStatus;
+import com.project.dvc_barber_service.enums.status.account.EAccountStatus;
 import com.project.dvc_barber_service.repository.database.cache.MyCacheEntity;
 import com.project.dvc_barber_service.service.account.AccountQueryService;
 import com.project.dvc_barber_service.service.cache.MyCacheCommandService;

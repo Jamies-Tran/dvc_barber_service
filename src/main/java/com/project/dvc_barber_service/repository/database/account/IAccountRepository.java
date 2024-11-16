@@ -32,6 +32,14 @@ public interface IAccountRepository extends JpaRepository<AccountEntity, Long> {
 
     @Query("""
         SELECT a
+        FROM AccountEntity  a
+        WHERE a.statusCode != :#{T(com.project.dvc_barber_service.enums.status.EDeleteStatus).DELETED.getCode()}
+            AND a.accountId = :accountId
+    """)
+    Optional<AccountEntity> findByAccountId(Long accountId);
+
+    @Query("""
+        SELECT a
         FROM AccountEntity a
         INNER JOIN RoleEntity r ON a.roleId = r.roleId
         WHERE (:#{#searchCriteria.hasPhoneEmpty()} = TRUE
