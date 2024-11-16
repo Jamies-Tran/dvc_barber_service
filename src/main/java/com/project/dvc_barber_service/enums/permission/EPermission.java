@@ -24,7 +24,8 @@ public enum EPermission {
     EXPERTISE_CREATE("EXPERTISE_CREATE", "expertise", "create"),
     EXPERTISE_UPDATE("EXPERTISE_UPDATE", "expertise", "update"),
     EXPERTISE_DELETE("EXPERTISE_DELETE", "expertise", "delete"),
-    EXPERTISE_VIEW_DETAIL("EXPERTISE_VIEW_DETAIL", "expertise", "view-detail"),;
+    EXPERTISE_VIEW_DETAIL("EXPERTISE_VIEW_DETAIL", "expertise", "view-detail"),
+    EXPERTISE_VIEW_LIST("EXPERTISE_VIEW_LIST", "expertise", "view-list");
 
     String code;
     String key;

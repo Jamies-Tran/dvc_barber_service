@@ -76,7 +76,8 @@ public class Initiation {
                         Permission.buildFrom(EPermission.EXPERTISE_CREATE),
                         Permission.buildFrom(EPermission.EXPERTISE_UPDATE),
                         Permission.buildFrom(EPermission.EXPERTISE_DELETE),
-                        Permission.buildFrom(EPermission.EXPERTISE_VIEW_DETAIL));
+                        Permission.buildFrom(EPermission.EXPERTISE_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.EXPERTISE_VIEW_LIST));
             }
             case BRANCH_MANAGER -> {
                 return List.of(
