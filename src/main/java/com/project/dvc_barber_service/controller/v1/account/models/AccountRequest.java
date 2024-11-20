@@ -6,6 +6,7 @@ public record AccountRequest(
         Long branchId,
         String firstName,
         String lastName,
+        String genderCode,
         LocalDateTime dob,
         String address,
         String phone,

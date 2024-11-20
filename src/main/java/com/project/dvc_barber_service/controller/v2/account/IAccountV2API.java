@@ -1,5 +1,6 @@
 package com.project.dvc_barber_service.controller.v2.account;
 
+import com.project.dvc_barber_service.controller.v2.account.models.AccountUpdateV2Request;
 import com.project.dvc_barber_service.controller.v2.account.models.AccountV2Request;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -58,7 +59,7 @@ public interface IAccountV2API {
      * start
      ***/
     @PutMapping("/self-update")
-    @PreAuthorize("hasAuthority('account:update')")
+    @PreAuthorize("hasAuthority('account:self-update')")
     @Operation(
             summary = "Cập nhật thông tin cá nhân",
             description = """
@@ -79,7 +80,7 @@ public interface IAccountV2API {
                     responseCode = "500",
                     description = "Lỗi hệ thống")
     })
-    ResponseEntity<?> selfUpdate(@RequestBody AccountV2Request request);
+    ResponseEntity<?> selfUpdate(@RequestBody AccountUpdateV2Request request);
     /*
      * Use case
      * Khách hàng cập nhật thông tin tài khoản

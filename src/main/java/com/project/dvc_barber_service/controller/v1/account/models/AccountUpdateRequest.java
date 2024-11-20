@@ -10,6 +10,7 @@ import java.util.List;
 public record AccountUpdateRequest(
         String firstName,
         String lastName,
+        String genderCode,
         LocalDateTime dob,
         String address,
         String phone,

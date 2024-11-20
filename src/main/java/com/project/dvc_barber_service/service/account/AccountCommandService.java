@@ -14,6 +14,7 @@ import com.project.dvc_barber_service.dto.account.action.AccountUpdatePasswordAc
 import com.project.dvc_barber_service.dto.auth.role.Role;
 import com.project.dvc_barber_service.dto.auth.role.action.RoleFindByCodeAction;
 import com.project.dvc_barber_service.dto.media.Media;
+import com.project.dvc_barber_service.enums.gender.EGender;
 import com.project.dvc_barber_service.enums.role.ERole;
 import com.project.dvc_barber_service.enums.status.account.EAccountStatus;
 import com.project.dvc_barber_service.enums.status.EDeleteStatus;
@@ -79,8 +80,11 @@ public class AccountCommandService {
             }
             EAccountStatus status = prepareStatus(action.role(), action.branchId());
             Role role = prepareRole(action.role().getCode());
+            EGender gender = prepareGender(account.genderCode());
             AccountEntity newAccount = mapper.toEntity(account)
                     .withRoleId(role.roleId())
+                    .withGenderCode(gender.getCode())
+                    .withGenderName(gender.getName())
                     .withStatusCode(status.getCode())
                     .withStatusName(status.getName());
             AccountLogin accountLogin = prepareAccountLogin(role.roleCode());
@@ -112,6 +116,11 @@ public class AccountCommandService {
         return roleQueryService
                 .findByCode(RoleFindByCodeAction.buildFrom(roleCode))
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy phân quyền"));
+    }
+
+    private EGender prepareGender(String genderCode) {
+        return EGender.getByCode(genderCode)
+                .orElse(EGender.OTHER);
     }
 
     private EAccountStatus prepareStatus(ERole role, Long branchId) {
@@ -150,7 +159,8 @@ public class AccountCommandService {
     public Account update(AccountUpdateAction action) {
         try {
             Account account = action.account();
-            Long accountId = Objects.requireNonNullElse(action.accountId(), requestContext.getAccount().accountId());
+            AccountLogin accountLogin = requestContext.getAccount();
+            Long accountId = Objects.requireNonNullElse(action.accountId(), accountLogin.accountId());
             Optional<AccountEntity> tryToGetAccount = repository.findById(accountId);
             return tryToGetAccount.map(x -> {
                 if(!Objects.equals(x.getPhone(), action.account().phone()) && repository.existsByPhone(account.phone())) {
@@ -158,7 +168,7 @@ public class AccountCommandService {
                 }
                 byte[] openingImage = prepareOpeningBeforeUpdate(account.openingImageMedia());
                 mapper.update(x, account, openingImage);
-                PrepareSaveOrUpdate.prepareUpdate(x, requestContext.getAccount());
+                PrepareSaveOrUpdate.prepareUpdate(x, accountLogin);
                 AccountEntity newAccount = repository.save(x);
                 return mapper.toDto(newAccount);
             }).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản"));

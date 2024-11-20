@@ -24,7 +24,8 @@ public interface IExpertiseRepository extends JpaRepository<ExpertiseEntity, Lon
         FROM ExpertiseEntity e
         WHERE e.statusCode != :#{T(com.project.dvc_barber_service.enums.status.EDeleteStatus).DELETED.getCode()}
             AND (:#{#searchCriteria.hasSearchEmpty()} = TRUE
-                OR e.expertiseName ILIKE %:#{#searchCriteria.search()}%)
+                OR (e.expertiseName ILIKE %:#{#searchCriteria.search()}%
+                    OR e.expertiseCode ILIKE %:#{#searchCriteria.search()}%))
             AND (:#{#searchCriteria.hasExpertiseCodesEmpty()} = TRUE
                 OR e.expertiseCode IN :#{#searchCriteria.expertiseCodes()})
     """)

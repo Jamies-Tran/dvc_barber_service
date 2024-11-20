@@ -1,4 +1,4 @@
-package com.project.dvc_barber_service.repository.database.expertise;
+package com.project.dvc_barber_service.repository.database.barber.category;
 
 import com.project.dvc_barber_service.enums.status.object.EObjectStatus;
 import com.project.dvc_barber_service.repository.database.audit.AuditEntity;
@@ -17,25 +17,23 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.util.StringUtils;
 
-import java.util.Objects;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "expertises")
+@Table(name = "barber_category")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ExpertiseEntity extends AuditEntity {
+public class BarberCategoryEntity extends AuditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long expertiseId;
+    Long barberCategoryId;
 
-    @Column(name = "expertise_code")
-    String expertiseCode;
+    @Column(name = "category_code")
+    String categoryCode;
 
-    @Column(name = "expertise_name")
-    String expertiseName;
+    @Column(name = "category_name")
+    String categoryName;
 
     @Column(name = "status_code")
     String statusCode;
@@ -45,13 +43,13 @@ public class ExpertiseEntity extends AuditEntity {
 
     @PostPersist
     public void postPersist() {
-        if(!StringUtils.hasText(statusCode) || !StringUtils.hasText(statusName)) {
+        if(!StringUtils.hasText(statusCode) || !StringUtils.hasText(statusName)){
             statusCode = EObjectStatus.ACTIVATED.getCode();
             statusName = EObjectStatus.ACTIVATED.getName();
         }
 
-        if(!StringUtils.hasText(expertiseCode)) {
-            expertiseCode = "EXP-%s".formatted(expertiseId.toString());
+        if(!StringUtils.hasText(categoryCode)){
+            categoryCode = "BC-%s".formatted(barberCategoryId.toString());
         }
     }
 }
