@@ -3,6 +3,7 @@ package com.project.dvc_barber_service.controller.v2.account;
 
 import com.project.dvc_barber_service.config.handler.exception.ResourceConflictException;
 import com.project.dvc_barber_service.config.handler.exception.ResourceNotFoundException;
+import com.project.dvc_barber_service.controller.v2.account.models.AccountUpdateV2Request;
 import com.project.dvc_barber_service.controller.v2.account.models.AccountV2Request;
 import com.project.dvc_barber_service.controller.v2.account.models.AccountV2Response;
 import com.project.dvc_barber_service.controller.v2.account.models.IAccountReqV2ModelMapper;
@@ -77,7 +78,7 @@ public class AccountV2Controller implements IAccountV2API {
      * start
      ***/
     @Override
-    public ResponseEntity<?> selfUpdate(AccountV2Request request) {
+    public ResponseEntity<?> selfUpdate(AccountUpdateV2Request request) {
         try {
             Account account = reqModelMapper.toDto(request);
             Account updatedAccount = useCase.update(AccountUpdateAction.buildFrom(account));

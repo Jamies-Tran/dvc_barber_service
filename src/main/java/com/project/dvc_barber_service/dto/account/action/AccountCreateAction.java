@@ -1,7 +1,6 @@
 package com.project.dvc_barber_service.dto.account.action;
 
 import com.project.dvc_barber_service.dto.account.Account;
-import com.project.dvc_barber_service.enums.expertise.EExpertise;
 import com.project.dvc_barber_service.enums.role.ERole;
 import lombok.Builder;
 

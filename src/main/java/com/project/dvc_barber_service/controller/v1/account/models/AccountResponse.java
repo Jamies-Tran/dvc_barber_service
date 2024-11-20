@@ -13,6 +13,8 @@ public record AccountResponse(
         String accountCode,
         String firstName,
         String lastName,
+        String genderCode,
+        String genderName,
         LocalDateTime dob,
         String address,
         String phone,

@@ -10,6 +10,8 @@ public record AccountV2Response(
         Long accountId,
         String firstName,
         String lastName,
+        String genderCode,
+        String genderName,
         String address,
         String phone,
         LocalDateTime dob,

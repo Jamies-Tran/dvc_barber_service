@@ -50,12 +50,11 @@ public class AccountUseCaseService implements IAccountUseCase {
      * Khách hàng tạo tài khoản
      * start
      ***/
-    @Transactional
     @Override
+    @Transactional
     public Account save(AccountCreateAction action) {
-        Account savedAccount = commandService.save(action);
 
-        return savedAccount;
+        return commandService.save(action);
     }
     /*
      * Use case
@@ -83,6 +82,7 @@ public class AccountUseCaseService implements IAccountUseCase {
      * start
      * */
     @Override
+    @Transactional
     public Account update(AccountUpdateAction action) {
         return commandService.update(action);
     }
@@ -100,6 +100,7 @@ public class AccountUseCaseService implements IAccountUseCase {
      * start
      * */
     @Override
+    @Transactional
     public void delete(AccountDeleteAction action) {
         commandService.delete(action);
     }
@@ -172,6 +173,7 @@ public class AccountUseCaseService implements IAccountUseCase {
      * start
      * */
     @Override
+    @Transactional
     public Account updatePassword(AccountUpdatePasswordAction action) {
         return commandService.updatePassword(action);
     }

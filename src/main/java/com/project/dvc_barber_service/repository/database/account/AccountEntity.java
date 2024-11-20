@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.PostPersist;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -19,6 +20,7 @@ import lombok.With;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,6 +47,14 @@ public class AccountEntity extends AuditEntity {
 
     @Column(name = "last_name")
     String lastName;
+
+    @With
+    @Column(name = "gender_code")
+    String genderCode;
+
+    @With
+    @Column(name = "gender_name")
+    String genderName;
 
     @Column(name = "phone")
     String phone;
@@ -89,6 +99,14 @@ public class AccountEntity extends AuditEntity {
     public void prePersist() {
         if(Objects.isNull(openingImage)) {
             openingImage = AppObjectMapper.convertDataToByte(List.of());
+        }
+    }
+
+    @PostPersist
+    public void postPersist() {
+        if(Objects.isNull(accountCode)) {
+            accountCode = "ACC%s%s".formatted(phone,
+                    this.getCreatedAt().format(DateTimeFormatter.ofPattern("ddMMyyyy")));
         }
     }
 }

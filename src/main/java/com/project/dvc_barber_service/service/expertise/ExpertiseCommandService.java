@@ -1,18 +1,12 @@
 package com.project.dvc_barber_service.service.expertise;
 
 import com.project.dvc_barber_service.config.context.RequestContext;
-import com.project.dvc_barber_service.config.handler.exception.ResourceConflictException;
 import com.project.dvc_barber_service.config.handler.exception.ResourceNotFoundException;
-import com.project.dvc_barber_service.dto.account.Account;
-import com.project.dvc_barber_service.dto.account.AccountLogin;
 import com.project.dvc_barber_service.dto.expertise.Expertise;
 import com.project.dvc_barber_service.dto.expertise.IExpertiseMapper;
 import com.project.dvc_barber_service.dto.expertise.action.ExpertiseCreateAction;
 import com.project.dvc_barber_service.dto.expertise.action.ExpertiseDeleteAction;
 import com.project.dvc_barber_service.dto.expertise.action.ExpertiseUpdateAction;
-import com.project.dvc_barber_service.enums.expertise.EExpertise;
-import com.project.dvc_barber_service.enums.role.ERole;
-import com.project.dvc_barber_service.enums.source.EExpertiseSource;
 import com.project.dvc_barber_service.enums.status.EDeleteStatus;
 import com.project.dvc_barber_service.repository.database.expertise.ExpertiseEntity;
 import com.project.dvc_barber_service.repository.database.expertise.IExpertiseRepository;
@@ -22,10 +16,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Slf4j
 @Service

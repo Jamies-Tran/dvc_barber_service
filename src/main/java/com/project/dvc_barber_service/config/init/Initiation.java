@@ -6,6 +6,7 @@ import com.project.dvc_barber_service.dto.account.action.AccountFindByPhoneActio
 import com.project.dvc_barber_service.dto.auth.permission.Permission;
 import com.project.dvc_barber_service.dto.auth.role.Role;
 import com.project.dvc_barber_service.dto.auth.role.action.RoleCreateListAction;
+import com.project.dvc_barber_service.enums.gender.EGender;
 import com.project.dvc_barber_service.enums.permission.EPermission;
 import com.project.dvc_barber_service.enums.role.ERole;
 import com.project.dvc_barber_service.service.account.usecase.IAccountUseCase;
@@ -77,7 +78,12 @@ public class Initiation {
                         Permission.buildFrom(EPermission.EXPERTISE_UPDATE),
                         Permission.buildFrom(EPermission.EXPERTISE_DELETE),
                         Permission.buildFrom(EPermission.EXPERTISE_VIEW_DETAIL),
-                        Permission.buildFrom(EPermission.EXPERTISE_VIEW_LIST));
+                        Permission.buildFrom(EPermission.EXPERTISE_VIEW_LIST),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_CREATE),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_UPDATE),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_DELETE),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST));
             }
             case BRANCH_MANAGER -> {
                 return List.of(
@@ -88,28 +94,36 @@ public class Initiation {
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
                         Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
-                        Permission.buildFrom(EPermission.EXPERTISE_VIEW_DETAIL));
+                        Permission.buildFrom(EPermission.EXPERTISE_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST));
             }
             case SERVICE_STAFF -> {
                 return List.of(
                         Permission.buildFrom(EPermission.ACCOUNT_SELF_UPDATE),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
-                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW));
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST));
             }
             case RECEPTIONIST -> {
                 return List.of(
                         Permission.buildFrom(EPermission.ACCOUNT_SELF_UPDATE),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
-                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW));
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST));
             }
             case CUSTOMER -> {
                 return List.of(
                         Permission.buildFrom(EPermission.ACCOUNT_SELF_UPDATE),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
-                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW));
+                        Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW),
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST));
             }
             default -> {
                 return List.of();

@@ -25,7 +25,12 @@ public enum EPermission {
     EXPERTISE_UPDATE("EXPERTISE_UPDATE", "expertise", "update"),
     EXPERTISE_DELETE("EXPERTISE_DELETE", "expertise", "delete"),
     EXPERTISE_VIEW_DETAIL("EXPERTISE_VIEW_DETAIL", "expertise", "view-detail"),
-    EXPERTISE_VIEW_LIST("EXPERTISE_VIEW_LIST", "expertise", "view-list");
+    EXPERTISE_VIEW_LIST("EXPERTISE_VIEW_LIST", "expertise", "view-list"),
+    BARBER_CATEGORY_CREATE("BARBER_CATEGORY_CREATE", "barber-category", "create"),
+    BARBER_CATEGORY_UPDATE("BARBER_CATEGORY_UPDATE", "barber-category", "update"),
+    BARBER_CATEGORY_DELETE("BARBER_CATEGORY_DELETE", "barber-category", "delete"),
+    BARBER_CATEGORY_VIEW("BARBER_CATEGORY_VIEW", "barber-category", "view"),
+    BARBER_CATEGORY_VIEW_LIST("BARBER_CATEGORY_VIEW_LIST", "barber-category", "view-list");
 
     String code;
     String key;

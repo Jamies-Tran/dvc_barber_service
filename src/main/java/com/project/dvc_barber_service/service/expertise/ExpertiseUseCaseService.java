@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class ExpertiseUseCaseService implements IExpertiseUseCase {
      * start
      * */
     @Override
+    @Transactional
     public Expertise save(ExpertiseCreateAction action) {
         return commandService.save(action);
     }
@@ -74,6 +76,7 @@ public class ExpertiseUseCaseService implements IExpertiseUseCase {
      * start
      * */
     @Override
+    @Transactional
     public Expertise update(ExpertiseUpdateAction action) {
         return commandService.update(action);
     }
@@ -88,6 +91,7 @@ public class ExpertiseUseCaseService implements IExpertiseUseCase {
      * start
      * */
     @Override
+    @Transactional
     public void delete(ExpertiseDeleteAction action) {
         commandService.delete(action);
     }
