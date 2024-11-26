@@ -44,6 +44,12 @@ public interface IAccountV2API {
                     responseCode = "409",
                     description = "Trùng số điện thoại với tài khoản khác"),
             @ApiResponse(
+                    responseCode = "403",
+                    description = "Không có quyền truy cập"),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Token hết hạn"),
+            @ApiResponse(
                     responseCode = "500",
                     description = "Lỗi hệ thống")
     })

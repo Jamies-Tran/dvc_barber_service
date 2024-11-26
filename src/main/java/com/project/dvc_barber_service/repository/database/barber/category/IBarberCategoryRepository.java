@@ -21,6 +21,14 @@ public interface IBarberCategoryRepository extends JpaRepository<BarberCategoryE
     Optional<BarberCategoryEntity> findByBarberCategoryId(Long barberCategoryId);
 
     @Query("""
+        SELECT COUNT(bc) > 0
+        FROM BarberCategoryEntity bc
+        INNER JOIN BarberServiceEntity bs ON bc.barberCategoryId = bs.barberCategoryId
+        WHERE bc.barberCategoryId = :barberCategoryId
+    """)
+    Boolean existsBarberService(Long barberCategoryId);
+
+    @Query("""
         SELECT bc
         FROM BarberCategoryEntity bc
         WHERE bc.statusCode != :#{T(com.project.dvc_barber_service.enums.status.EDeleteStatus).DELETED.getCode()}

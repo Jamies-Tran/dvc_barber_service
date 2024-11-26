@@ -1,6 +1,7 @@
 package com.project.dvc_barber_service.service.barber.category;
 
 import com.project.dvc_barber_service.config.context.RequestContext;
+import com.project.dvc_barber_service.config.handler.exception.ActionNotAllowException;
 import com.project.dvc_barber_service.config.handler.exception.ResourceNotFoundException;
 import com.project.dvc_barber_service.dto.barber.category.BarberCategory;
 import com.project.dvc_barber_service.dto.barber.category.IBarberCategoryMapper;
@@ -87,8 +88,12 @@ public class BarberCategoryCommandService {
             repository.findByBarberCategoryId(action.barberCategoryId())
                     .ifPresentOrElse(
                             x -> {
+                                if(repository.existsBarberService(x.getBarberCategoryId())) {
+                                    throw new ActionNotAllowException("Danh mục dịch vụ không thể xóa");
+                                }
                                 x.setStatusCode(EDeleteStatus.DELETED.getCode());
                                 x.setStatusName(EDeleteStatus.DELETED.getName());
+
                                 PrepareSaveOrUpdate.prepareUpdate(x, requestContext.getAccount());
 
                                 repository.save(x);
@@ -97,6 +102,8 @@ public class BarberCategoryCommandService {
                                 throw new ResourceNotFoundException("Không tìm thấy DM dịch vụ");
                             }
                     );
+        } catch (ActionNotAllowException | ResourceNotFoundException e) {
+            throw e;
         } catch (Exception e) {
             log.error("[{}-delete] Có lỗi xảy ra: {}", this.getClass().getSimpleName(), e.getMessage());
             throw e;

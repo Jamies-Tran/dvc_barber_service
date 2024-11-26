@@ -83,7 +83,12 @@ public class Initiation {
                         Permission.buildFrom(EPermission.BARBER_CATEGORY_UPDATE),
                         Permission.buildFrom(EPermission.BARBER_CATEGORY_DELETE),
                         Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW),
-                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST));
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_CREATE),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_LIST),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_UPDATE),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_DELETE));
             }
             case BRANCH_MANAGER -> {
                 return List.of(
@@ -96,7 +101,9 @@ public class Initiation {
                         Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
                         Permission.buildFrom(EPermission.EXPERTISE_VIEW_DETAIL),
                         Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW),
-                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST));
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_LIST));
             }
             case SERVICE_STAFF -> {
                 return List.of(
@@ -105,7 +112,9 @@ public class Initiation {
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
                         Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
                         Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW),
-                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST));
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_LIST));
             }
             case RECEPTIONIST -> {
                 return List.of(
@@ -114,7 +123,9 @@ public class Initiation {
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
                         Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
                         Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW),
-                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST));
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_LIST));
             }
             case CUSTOMER -> {
                 return List.of(
@@ -123,7 +134,8 @@ public class Initiation {
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
                         Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
                         Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW),
-                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST));
+                        Permission.buildFrom(EPermission.BARBER_CATEGORY_VIEW_LIST),
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_DETAIL));
             }
             default -> {
                 return List.of();
