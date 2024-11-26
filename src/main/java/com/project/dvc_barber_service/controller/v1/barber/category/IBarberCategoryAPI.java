@@ -37,6 +37,12 @@ public interface IBarberCategoryAPI {
                     responseCode = "200",
                     description = "Tạo DM dịch vụ thành công"),
             @ApiResponse(
+                    responseCode = "403",
+                    description = "Không có quyền truy cập"),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Token hết hạn"),
+            @ApiResponse(
                     responseCode = "500",
                     description = "Lỗi hệ thống")
     })
@@ -72,6 +78,12 @@ public interface IBarberCategoryAPI {
             @ApiResponse(
                     responseCode = "200",
                     description = "Tìm kiếm danh sách DM dịch vụ thành công"),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Không có quyền truy cập"),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Token hết hạn"),
             @ApiResponse(
                     responseCode = "500",
                     description = "Lỗi hệ thống")

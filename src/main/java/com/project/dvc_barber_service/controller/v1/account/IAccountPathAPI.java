@@ -57,6 +57,12 @@ public interface IAccountPathAPI {
                     responseCode = "409",
                     description = "Trùng số điện thoại với tài khoản khác"),
             @ApiResponse(
+                    responseCode = "403",
+                    description = "Không có quyền truy cập"),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Token hết hạn"),
+            @ApiResponse(
                     responseCode = "500",
                     description = "Lỗi hệ thống")
     })
@@ -94,7 +100,10 @@ public interface IAccountPathAPI {
                     description = "Không tìm thấy tài khoản"),
             @ApiResponse(
                     responseCode = "403",
-                    description = "Quản lý chi nhánh không được xóa tài khoản của tài khoản không thuộc chi nhánh mình quản lý"),
+                    description = "Quản lý chi nhánh không được xóa tài khoản của tài khoản không thuộc chi nhánh mình quản lý\\Token hết hạn"),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Token hết hạn"),
             @ApiResponse(
                     responseCode = "500",
                     description = "Lỗi hệ thống")
@@ -133,6 +142,12 @@ public interface IAccountPathAPI {
             @ApiResponse(
                     responseCode = "404",
                     description = "Không tìm thấy tài khoản"),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Không có quyền truy cập"),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Token hết hạn"),
             @ApiResponse(
                     responseCode = "500",
                     description = "Lỗi hệ thống")

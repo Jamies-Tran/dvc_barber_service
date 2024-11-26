@@ -1,5 +1,6 @@
 package com.project.dvc_barber_service.controller.v1.barber.category;
 
+import com.project.dvc_barber_service.config.handler.exception.ActionNotAllowException;
 import com.project.dvc_barber_service.config.handler.exception.ResourceNotFoundException;
 import com.project.dvc_barber_service.controller.v1.barber.category.models.BarberCategoryUpdateRequest;
 import com.project.dvc_barber_service.controller.v1.barber.category.models.IBarberCategoryReqModelMapper;
@@ -96,7 +97,7 @@ public class BarberCategoryPathController implements IBarberCategoryPathAPI {
 
             return ResponseEntity.ok(ValueResponse.success(null,
                     "Xóa DM dịch vụ thành công"));
-        } catch (ResourceNotFoundException e) {
+        } catch (ActionNotAllowException | ResourceNotFoundException e) {
            throw e;
         } catch (Exception e) {
             return ResponseEntity.internalServerError()

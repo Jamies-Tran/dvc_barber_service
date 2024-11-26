@@ -61,6 +61,12 @@ public interface IAccountAPI {
                     responseCode = "409",
                     description = "Trùng số điện thoại với tài khoản khác"),
             @ApiResponse(
+                    responseCode = "403",
+                    description = "Không có quyền truy cập"),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Token hết hạn"),
+            @ApiResponse(
                     responseCode = "500",
                     description = "Lỗi hệ thống")
     })
@@ -101,6 +107,12 @@ public interface IAccountAPI {
             @ApiResponse(
                     responseCode = "409",
                     description = "Trùng số điện thoại với tài khoản khác"),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Không có quyền truy cập"),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Token hết hạn"),
             @ApiResponse(
                     responseCode = "500",
                     description = "Lỗi hệ thống")
@@ -143,6 +155,12 @@ public interface IAccountAPI {
             @ApiResponse(
                     responseCode = "200",
                     description = "Tìm kiếm danh sách tài khoản thành công"),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Không có quyền truy cập"),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Token hết hạn"),
             @ApiResponse(
                     responseCode = "500",
                     description = "Lỗi hệ thống")
@@ -192,7 +210,10 @@ public interface IAccountAPI {
                     description = "Không tìm thấy tài khoản"),
             @ApiResponse(
                     responseCode = "403",
-                    description = "Mật khẩu cũ không khớp với mật khẩu hiện tại"),
+                    description = "Mật khẩu cũ không khớp với mật khẩu hiện tại\\Không có quyền truy cập"),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Token hết hạn"),
             @ApiResponse(
                     responseCode = "500",
                     description = "Lỗi hệ thống")

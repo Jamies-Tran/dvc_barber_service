@@ -1,5 +1,6 @@
 package com.project.dvc_barber_service.config.handler;
 
+import com.project.dvc_barber_service.config.handler.exception.ActionNotAllowException;
 import com.project.dvc_barber_service.config.handler.exception.IdentificationException;
 import com.project.dvc_barber_service.config.handler.exception.ResourceConflictException;
 import com.project.dvc_barber_service.config.handler.exception.ResourceForbiddenException;
@@ -35,5 +36,11 @@ public class AdviceController {
     @ExceptionHandler(ResourceForbiddenException.class)
     public ErrorResponse resourceForbiddenException(ResourceForbiddenException exc) {
         return ErrorResponse.of(HttpStatus.FORBIDDEN.value(),HttpStatus.FORBIDDEN.getReasonPhrase(), exc.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ActionNotAllowException.class)
+    public ErrorResponse actionNotAllowException(ActionNotAllowException exc) {
+        return ErrorResponse.of(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.getReasonPhrase(), exc.getMessage());
     }
 }

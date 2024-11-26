@@ -30,7 +30,12 @@ public enum EPermission {
     BARBER_CATEGORY_UPDATE("BARBER_CATEGORY_UPDATE", "barber-category", "update"),
     BARBER_CATEGORY_DELETE("BARBER_CATEGORY_DELETE", "barber-category", "delete"),
     BARBER_CATEGORY_VIEW("BARBER_CATEGORY_VIEW", "barber-category", "view"),
-    BARBER_CATEGORY_VIEW_LIST("BARBER_CATEGORY_VIEW_LIST", "barber-category", "view-list");
+    BARBER_CATEGORY_VIEW_LIST("BARBER_CATEGORY_VIEW_LIST", "barber-category", "view-list"),
+    BARBER_SERVICE_CREATE("BARBER_SERVICE_CREATE", "barber-service", "create"),
+    BARBER_SERVICE_VIEW_DETAIL("BARBER_SERVICE_VIEW_DETAIL", "barber-service", "view-detail"),
+    BARBER_SERVICE_VIEW_LIST("BARBER_SERVICE_VIEW_LIST", "barber-service", "view-list"),
+    BARBER_SERVICE_UPDATE("BARBER_SERVICE_UPDATE", "barber-service", "update"),
+    BARBER_SERVICE_DELETE("BARBER_SERVICE_DELETE", "barber-service", "delete");
 
     String code;
     String key;

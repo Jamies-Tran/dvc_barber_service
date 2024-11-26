@@ -1,6 +1,6 @@
-package com.project.dvc_barber_service.controller.v1.barber.category;
+package com.project.dvc_barber_service.controller.v1.barber.service;
 
-import com.project.dvc_barber_service.controller.v1.barber.category.models.BarberCategoryUpdateRequest;
+import com.project.dvc_barber_service.controller.v1.barber.service.models.BarberServiceUpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -14,37 +14,28 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/v1/barber-category/{barberCategoryId}")
-@Tag(name = "Barber Category", description = "Quản lý danh mục dịch vụ")
-public interface IBarberCategoryPathAPI {
-    /*
-     * Use case
-     * Chủ shop xem chi tiết DM dịch vụ trong hệ thống
-     * QL chi nhánh xem chi tiết DM dịch vụ trong hệ thống
-     * Nhân viên phục vụ xem chi tiết DM dịch vụ trong hệ thống
-     * Tiếp tân xem chi tiết DM dịch vụ trong hệ thống
-     * Khách hàng xem chi tiết DM dịch vụ trong hệ thống
-     * start
-     * */
+@Tag(name = "Barber Service", description = "Quản lý dịch vụ")
+@RequestMapping("/v1/barber-service/{barberServiceId}")
+public interface IBarberServicePathAPI {
+    /**/
     @GetMapping
-    @PreAuthorize("hasAuthority('barber-category:view')")
+    @PreAuthorize("hasAuthority('barber-service:view-detail')")
     @Operation(
-            summary = "Tìm kiếm chi tiết DM dịch vụ",
+            summary = "Tìm kiếm chi tiết dịch vụ",
             description = """
-                    - Chủ shop xem chi tiết DM dịch vụ trong hệ thống
-                    - QL chi nhánh xem chi tiết DM dịch vụ trong hệ thống
-                    - Nhân viên phục vụ xem chi tiết DM dịch vụ trong hệ thống
-                    - Tiếp tân xem chi tiết DM dịch vụ trong hệ thống
-                    - Khách hàng xem chi tiết DM dịch vụ trong hệ thống
+                    - Chủ shop xem chi tiết dịch vụ trong hệ thống
+                    - QL chi nhánh xem chi tiết dịch vụ trong hệ thông
+                    - Tiếp tân xem chi tiết dịch vụ trong hệ thống
+                    - Nhân viên phục vụ xem chi tiết dịch vụ trong hệ thống
                     """
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Tìm kiếm chi tiết DM dịch vụ thành công"),
+                    description = "Tìm thấy danh sách dịch vụ"),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Không tìm thấy DM dịch vụ"),
+                    description = "Không tìm thấy dịch vụ"),
             @ApiResponse(
                     responseCode = "403",
                     description = "Không có quyền truy cập"),
@@ -55,32 +46,28 @@ public interface IBarberCategoryPathAPI {
                     responseCode = "500",
                     description = "Lỗi hệ thống")
     })
-    ResponseEntity<?> findById(@PathVariable Long barberCategoryId);
+    ResponseEntity<?> findById(@PathVariable Long barberServiceId);
     /*
-     * Use case
-     * end
-     * */
+    * Use case
+    * end
+    * */
 
-    /*
-     * Use case
-     * Chủ shop cập nhật DM dịch vụ trong hệ thống
-     * start
-     * */
+    /**/
     @PutMapping
-    @PreAuthorize("hasAuthority('barber-category:update')")
+    @PreAuthorize("hasAuthority('barber-service:update')")
     @Operation(
-            summary = "Cập nhật DM dịch vụ",
+            summary = "Cập nhật dịch vụ",
             description = """
-                    - Chủ shop cập nhật DM dịch vụ trong hệ thống
+                    - Chủ shop cập nhật thông tin dịch vụ trong hệ thống
                     """
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Cập nhật DM dịch vụ thành công"),
+                    description = "Cập nhật dịch vụ thành công"),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Không tìm thấy DM dịch vụ"),
+                    description = "Không tìm thấy dịch vụ"),
             @ApiResponse(
                     responseCode = "403",
                     description = "Không có quyền truy cập"),
@@ -91,32 +78,28 @@ public interface IBarberCategoryPathAPI {
                     responseCode = "500",
                     description = "Lỗi hệ thống")
     })
-    ResponseEntity<?> update(@PathVariable Long barberCategoryId, @RequestBody BarberCategoryUpdateRequest request);
+    ResponseEntity<?> update(@PathVariable Long barberServiceId, @RequestBody BarberServiceUpdateRequest request);
     /*
      * Use case
      * end
      * */
 
-    /*
-     * Use case
-     * Chủ shop xóa DM dịch vụ trong hệ thông
-     * start
-     * */
+    /**/
     @DeleteMapping
-    @PreAuthorize("hasAuthority('barber-category:delete')")
+    @PreAuthorize("hasAuthority('barber-service:delete')")
     @Operation(
-            summary = "Xóa DM dịch vụ",
+            summary = "Xóa dịch vụ",
             description = """
-                    - Chủ shop xóa DM dịch vụ trong hệ thông
+                    - Chủ shop cập nhật thông tin dịch vụ trong hệ thống
                     """
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Xóa DM dịch vụ thành công"),
+                    description = "Xóa dịch vụ thành công"),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Không tìm thấy DM dịch vụ"),
+                    description = "Không tìm thấy dịch vụ"),
             @ApiResponse(
                     responseCode = "403",
                     description = "Không có quyền truy cập"),
@@ -127,7 +110,7 @@ public interface IBarberCategoryPathAPI {
                     responseCode = "500",
                     description = "Lỗi hệ thống")
     })
-    ResponseEntity<?> delete(@PathVariable Long barberCategoryId);
+    ResponseEntity<?> delete(@PathVariable Long barberServiceId);
     /*
      * Use case
      * end

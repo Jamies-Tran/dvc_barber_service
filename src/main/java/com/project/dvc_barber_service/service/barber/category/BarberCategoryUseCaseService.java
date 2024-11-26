@@ -6,7 +6,9 @@ import com.project.dvc_barber_service.dto.barber.category.action.BarberCategoryD
 import com.project.dvc_barber_service.dto.barber.category.action.BarberCategoryFindByIdAction;
 import com.project.dvc_barber_service.dto.barber.category.action.BarberCategorySearchCriteria;
 import com.project.dvc_barber_service.dto.barber.category.action.BarberCategoryUpdateAction;
+import com.project.dvc_barber_service.dto.barber.service.BarberService;
 import com.project.dvc_barber_service.service.barber.category.usecase.IBarberCategoryUseCase;
+import com.project.dvc_barber_service.service.barber.service.BarberProductQueryService;
 import com.project.dvc_barber_service.util.request.PageRequestCustom;
 import lombok.AccessLevel;
 import lombok.NonNull;
@@ -16,6 +18,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level =  AccessLevel.PRIVATE, makeFinal = true)
@@ -23,6 +30,8 @@ public class BarberCategoryUseCaseService implements IBarberCategoryUseCase {
     @NonNull BarberCategoryCommandService commandService;
 
     @NonNull BarberCategoryQueryService queryService;
+
+    @NonNull BarberProductQueryService productQueryService;
 
     /*
      * Use case
@@ -50,7 +59,13 @@ public class BarberCategoryUseCaseService implements IBarberCategoryUseCase {
      * */
     @Override
     public BarberCategory findById(BarberCategoryFindByIdAction action) {
-        return queryService.findById(action);
+        BarberCategory category = queryService.findById(action);
+
+        return category.withServices(prepareService(category.barberCategoryId()));
+    }
+
+    private List<BarberService> prepareService(Long categoryId) {
+        return productQueryService.findAllByCategoryId(categoryId);
     }
     /*
      * Use case
@@ -68,8 +83,20 @@ public class BarberCategoryUseCaseService implements IBarberCategoryUseCase {
      * */
     @Override
     public Page<BarberCategory> findAll(BarberCategorySearchCriteria searchCriteria, PageRequestCustom pageRequestCustom) {
-        return queryService.findAll(searchCriteria, pageRequestCustom);
+        Page<BarberCategory> categories = queryService.findAll(searchCriteria, pageRequestCustom);
+        List<Long> categoryIds = categories.map(BarberCategory::barberCategoryId).stream().toList();
+        Map<Long, List<BarberService>> services = prepareServiceForList(categoryIds);
+
+        return categories.map(x ->
+                x.withServices(services.computeIfAbsent(x.barberCategoryId(), _ -> new ArrayList<>())));
     }
+
+    private Map<Long, List<BarberService>> prepareServiceForList(List<Long> categoryIds) {
+        return productQueryService.findAllByCategoryIds(categoryIds)
+                .stream()
+                .collect(Collectors.groupingBy(BarberService::barberCategoryId));
+    }
+
     /*
      * Use case
      * end
