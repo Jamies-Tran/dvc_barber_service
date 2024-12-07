@@ -73,7 +73,6 @@ public class Initiation {
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_LIST),
                         Permission.buildFrom(EPermission.ACCOUNT_VIEW_DETAIL),
                         Permission.buildFrom(EPermission.ACCOUNT_SELF_VIEW),
-                        Permission.buildFrom(EPermission.BRANCH_CREATE),
                         Permission.buildFrom(EPermission.EXPERTISE_CREATE),
                         Permission.buildFrom(EPermission.EXPERTISE_UPDATE),
                         Permission.buildFrom(EPermission.EXPERTISE_DELETE),
@@ -88,7 +87,10 @@ public class Initiation {
                         Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_DETAIL),
                         Permission.buildFrom(EPermission.BARBER_SERVICE_VIEW_LIST),
                         Permission.buildFrom(EPermission.BARBER_SERVICE_UPDATE),
-                        Permission.buildFrom(EPermission.BARBER_SERVICE_DELETE));
+                        Permission.buildFrom(EPermission.BARBER_SERVICE_DELETE),
+                        Permission.buildFrom(EPermission.BRANCH_CREATE),
+                        Permission.buildFrom(EPermission.BRANCH_VIEW_DETAIL),
+                        Permission.buildFrom(EPermission.BRANCH_ADD_SERVICE));
             }
             case BRANCH_MANAGER -> {
                 return List.of(

@@ -8,4 +8,13 @@ import java.util.List;
 public record LocationResponse(
         List<Location> locations
 ) {
+    public static LocationResponse buildFrom(com.project.dvc_barber_service.repository.feign.place.location.models.LocationResponse goongLocation) {
+        List<Location> locations  = goongLocation.locations().stream()
+                .map(x -> Location.buildFrom(x.locationName(), x.textFormat().mainText()))
+                .toList();
+
+        return LocationResponse.builder()
+                .locations(locations)
+                .build();
+    }
 }

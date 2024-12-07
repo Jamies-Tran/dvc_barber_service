@@ -5,5 +5,5 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ILocationModelMapper extends IModelMapper<LocationResponse, com.project.dvc_barber_service.repository.feign.place.models.location.LocationResponse> {
+public interface ILocationModelMapper extends IModelMapper<LocationResponse, com.project.dvc_barber_service.repository.feign.place.location.models.LocationResponse> {
 }

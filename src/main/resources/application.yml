@@ -41,7 +41,7 @@ app:
     goong:
       host: ${GOONG_HOST:https://rsapi.goong.io}
       places: ${GOONG_PLACES:/Place/AutoComplete}
-      place-detail: ${GOONG_PLACE_DETAIL:/geocode}
+      geo: ${GOONG_PLACE_DETAIL:/geocode}
   key:
     goong: ${GOONG_API_KEY:PosiudHQxV2Yx5Zt5f2tbuqy1XlTUAJ3aym7tcLq}
 

@@ -4,6 +4,13 @@ import lombok.Builder;
 
 @Builder
 public record Location(
-        String locationName
+        String locationName,
+        String mainText
 ) {
+    public static Location buildFrom(String locationName, String mainText) {
+        return Location.builder()
+                .locationName(locationName)
+                .mainText(mainText)
+                .build();
+    }
 }

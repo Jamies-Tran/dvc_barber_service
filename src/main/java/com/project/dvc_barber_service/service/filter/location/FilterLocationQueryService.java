@@ -1,8 +1,8 @@
 package com.project.dvc_barber_service.service.filter.location;
 
 import com.project.dvc_barber_service.dto.location.LocationSearchCriteria;
-import com.project.dvc_barber_service.repository.feign.place.ILocationPlaceHolder;
-import com.project.dvc_barber_service.repository.feign.place.models.location.LocationResponse;
+import com.project.dvc_barber_service.repository.feign.place.location.ILocationPlaceHolder;
+import com.project.dvc_barber_service.repository.feign.place.location.models.LocationResponse;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

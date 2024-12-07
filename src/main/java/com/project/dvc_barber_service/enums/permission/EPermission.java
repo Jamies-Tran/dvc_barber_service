@@ -20,7 +20,6 @@ public enum EPermission {
     ACCOUNT_VIEW_DETAIL("ACCOUNT_VIEW_DETAIL", "account", "view-detail"),
     ACCOUNT_SELF_VIEW("ACCOUNT_SELF_VIEW", "account", "self-view"),
     ACCOUNT_DELETE("ACCOUNT_DELETE", "account", "delete"),
-    BRANCH_CREATE("BRANCH_CREATE", "branch", "create"),
     EXPERTISE_CREATE("EXPERTISE_CREATE", "expertise", "create"),
     EXPERTISE_UPDATE("EXPERTISE_UPDATE", "expertise", "update"),
     EXPERTISE_DELETE("EXPERTISE_DELETE", "expertise", "delete"),
@@ -35,7 +34,10 @@ public enum EPermission {
     BARBER_SERVICE_VIEW_DETAIL("BARBER_SERVICE_VIEW_DETAIL", "barber-service", "view-detail"),
     BARBER_SERVICE_VIEW_LIST("BARBER_SERVICE_VIEW_LIST", "barber-service", "view-list"),
     BARBER_SERVICE_UPDATE("BARBER_SERVICE_UPDATE", "barber-service", "update"),
-    BARBER_SERVICE_DELETE("BARBER_SERVICE_DELETE", "barber-service", "delete");
+    BARBER_SERVICE_DELETE("BARBER_SERVICE_DELETE", "barber-service", "delete"),
+    BRANCH_CREATE("BRANCH_CREATE", "branch", "create"),
+    BRANCH_VIEW_DETAIL("BRANCH_VIEW_DETAIL", "branch", "view-detail"),
+    BRANCH_ADD_SERVICE("BRANCH_ADD_SERVICE", "branch", "add-service"),;
 
     String code;
     String key;

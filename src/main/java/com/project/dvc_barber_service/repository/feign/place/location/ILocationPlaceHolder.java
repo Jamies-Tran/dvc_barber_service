@@ -1,6 +1,6 @@
-package com.project.dvc_barber_service.repository.feign.place;
+package com.project.dvc_barber_service.repository.feign.place.location;
 
-import com.project.dvc_barber_service.repository.feign.place.models.location.LocationResponse;
+import com.project.dvc_barber_service.repository.feign.place.location.models.LocationResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Import;
