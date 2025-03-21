@@ -35,10 +35,7 @@ public class AccountQueryService {
     /*1-tìm tài khoản bằng số điện thoại*/
     public Optional<Account> findByPhone(AccountFindByPhoneAction action) {
         return repository.findByPhone(action.phone())
-                .map(x -> {
-
-                    return mapper.toDto(x).withRole(getRole(x.getRoleId()));
-                });
+                .map(x -> mapper.toDto(x).withRole(getRole(x.getRoleId())));
     }
     /*1-end*/
 

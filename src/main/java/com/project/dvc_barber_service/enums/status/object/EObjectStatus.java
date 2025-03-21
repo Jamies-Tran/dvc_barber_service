@@ -1,6 +1,5 @@
 package com.project.dvc_barber_service.enums.status.object;
 
-import com.project.dvc_barber_service.enums.status.account.EAccountStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
